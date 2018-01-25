@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+    <FrameLayout
+        android:id="@+id/de_frm_backgroud"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/iv_register_background"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="-50dp"
+            android:layout_marginRight="-300dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/de_bg"/>
+
+    </FrameLayout>
+
+
+    <LinearLayout
+        android:id="@+id/main"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+
+        <ImageView
+            android:id="@+id/iv_register_logo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="61dip"/>
+
+        <com.qiuzhonghao.finalpractices.ui.custom.ClearWriteEditText
+            android:id="@+id/et_register_username"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+
+            android:layout_marginTop="20dp"
+            android:background="@drawable/rs_login_edittext_style"
+            android:drawablePadding="5dip"
+            android:ellipsize="end"
+            android:hint="@string/register_nickname"
+            android:inputType="textPersonName"
+            android:maxLength="32"
+            android:maxLines="1"
+            android:paddingLeft="10dip"
+            android:paddingRight="10dip"
+            android:textColor="#FFF"
+            android:textColorHint="#FFFFFF"/>
+
+        <com.qiuzhonghao.finalpractices.ui.custom.ClearWriteEditText
+            android:id="@+id/et_register_phone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/rs_login_edittext_style"
+            android:drawablePadding="5dip"
+            android:hint="@string/login_phone_number"
+            android:inputType="phone"
+            android:maxLength="11"
+            android:maxLines="1"
+            android:paddingLeft="10dip"
+            android:paddingRight="10dip"
+            android:textColor="#FFF"
+            android:textColorHint="#FFFFFF"/>
+
+
+        <com.qiuzhonghao.finalpractices.ui.custom.ClearWriteEditText
+            android:id="@+id/et_register_password"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/rs_login_edittext_style"
+            android:drawablePadding="5dip"
+            android:hint="@string/login_password"
+            android:inputType="textPassword"
+            android:maxLength="16"
+            android:maxLines="1"
+            android:paddingLeft="10dip"
+            android:paddingRight="10dip"
+            android:textColor="#FFF"
+            android:textColorHint="#FFFFFF"/>
+
+
+        <com.qiuzhonghao.finalpractices.ui.custom.ClearWriteEditText
+            android:id="@+id/et_register_password_again"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/rs_login_edittext_style"
+            android:drawablePadding="5dip"
+            android:hint="@string/register_password_check"
+            android:inputType="textPassword"
+            android:maxLength="16"
+            android:maxLines="1"
+            android:paddingLeft="10dip"
+            android:paddingRight="10dip"
+            android:textColor="#FFF"
+            android:textColorHint="#FFFFFF"/>
+
+
+        <Button
+            android:id="@+id/btn_register_register"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginLeft="36dp"
+            android:layout_marginRight="36dp"
+            android:layout_marginTop="30dp"
+            android:background="@drawable/rs_select_btn_gray"
+            android:clickable="false"
+            android:text="@string/login_register"
+            android:textColor="#FFF"/>
+
+
+    </LinearLayout>
+
+
+    <TextView
+        android:id="@+id/tv_register_forget"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:padding="15dp"
+        android:text="@string/login_forget_password"
+        android:textColor="#999999"
+        android:textSize="14sp"/>
+
+
+    <TextView
+        android:id="@+id/tv_register_login"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:padding="15dp"
+        android:text="@string/login"
+        android:textColor="#999999"
+        android:textSize="14sp"/>
+
+</RelativeLayout>
