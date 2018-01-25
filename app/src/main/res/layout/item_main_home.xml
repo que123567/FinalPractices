@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/margin_8_dp">
+
+        <android.support.v4.widget.CircleImageView
+            android:id="@+id/iv_main_home_head"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/main_home_author"/>
+
+        <TextView
+            android:id="@+id/tv_main_home_author"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="菲菲毛赞同了回答"/>
+
+        <TextView
+            android:id="@+id/tv_main_home_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/margin_8_dp"
+            android:layout_marginTop="@dimen/textsize_10_dp"
+            android:text="10分钟前"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/margin_8_dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tv_main_home_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/margin_8_dp"
+            android:text="如果埃博拉病毒首先爆发在中国，中国人会被一波带走吗?"
+            android:textSize="@dimen/textsize_14_dp"
+            android:textStyle="bold"/>
+
+        <TextView
+            android:id="@+id/tv_main_home_briefintro"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="不会 ，就这个问题，我当面问过中国解放军传染病医院（302）的医务部主任和传染科主任——他们同时也是中国第一支埃博拉疫区救援队的成员。救援队从非洲回来..."/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/tv_main_home_vote_number"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/margin_8_dp"
+            android:text="10 赞同"/>
+
+        <TextView
+            android:id="@+id/tv_main_home_comment_number"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/margin_8_dp"
+            android:text="63 评论"/>
+    </LinearLayout>
+
+</LinearLayout>

@@ -10,4 +10,7 @@
     <string name="register_nickname">昵称</string>
     <string name="register_password_check">确认密码</string>
 
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
 </resources>
