@@ -47,6 +47,7 @@ public class LoginActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setBackGroundAnnimaiton(ivBackground);
         setEditTextWatcher();
+        startActivity(MainActivity.class);
     }
 
 

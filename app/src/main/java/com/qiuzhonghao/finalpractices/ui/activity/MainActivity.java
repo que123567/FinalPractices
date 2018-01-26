@@ -4,10 +4,13 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.support.v7.widget.RecyclerView;
 
 import com.qiuzhonghao.finalpractices.R;
 import com.qiuzhonghao.finalpractices.base.BaseActivity;
+import com.qiuzhonghao.finalpractices.bean.MainHomeBean;
 import com.qiuzhonghao.finalpractices.ui.fragment.MainHomeFragment;
+import com.zhy.adapter.recyclerview.CommonAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,6 +18,13 @@ import java.util.List;
 import butterknife.BindView;
 
 public class MainActivity extends BaseActivity implements ViewPager.OnPageChangeListener {
+
+
+    RecyclerView mRecyclerView;
+    CommonAdapter<MainHomeBean> mMainHomeAdapter;
+    List<MainHomeBean> mBeanList;
+
+
     @BindView(R.id.main_viewpager)
     ViewPager sMainViewPager;
 
@@ -38,10 +48,6 @@ public class MainActivity extends BaseActivity implements ViewPager.OnPageChange
 
 
     private void initMainViewPager() {
-
-        mFragmentList.add(new MainHomeFragment());
-        mFragmentList.add(new MainHomeFragment());
-        mFragmentList.add(new MainHomeFragment());
         mFragmentList.add(new MainHomeFragment());
 
         FragmentPagerAdapter fragmentPagerAdapter = new FragmentPagerAdapter(getSupportFragmentManager()) {
@@ -60,6 +66,13 @@ public class MainActivity extends BaseActivity implements ViewPager.OnPageChange
         sMainViewPager.addOnPageChangeListener(this);
     }
 
+    /**
+     * OnPageChangeListener
+     *
+     * @param position
+     * @param positionOffset
+     * @param positionOffsetPixels
+     */
     @Override
     public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
 
@@ -67,11 +80,28 @@ public class MainActivity extends BaseActivity implements ViewPager.OnPageChange
 
     @Override
     public void onPageSelected(int position) {
-
+        changeSelectTabState(position);
     }
+
 
     @Override
     public void onPageScrollStateChanged(int state) {
 
+    }
+
+
+    private void changeSelectTabState(int position) {
+        switch (position) {
+            case 0:
+                break;
+            case 1:
+                break;
+            case 2:
+                break;
+            case 3:
+                break;
+            default:
+                break;
+        }
     }
 }

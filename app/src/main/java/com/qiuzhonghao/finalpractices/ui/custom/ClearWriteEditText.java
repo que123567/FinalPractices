@@ -40,6 +40,7 @@ public class ClearWriteEditText extends android.support.v7.widget.AppCompatEditT
         init();
     }
 
+
     private void init() {
         mClearDrawable = getResources().getDrawable(R.drawable.search_clear_pressed_write);
         mClearDrawable.setBounds(0, 0, mClearDrawable.getIntrinsicWidth(), mClearDrawable.getIntrinsicHeight());
