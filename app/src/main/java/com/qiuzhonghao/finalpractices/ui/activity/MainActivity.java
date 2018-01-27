@@ -4,6 +4,8 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.ActionBar;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -30,7 +32,7 @@ public class MainActivity extends BaseActivity implements ViewPager.OnPageChange
     TextView mTvHomePage;
     @BindView(R.id.iv_main_dynamic)
     ImageView mIvMainDynamic;
-    @BindView(R.id.tvv_main_dynamic)
+    @BindView(R.id.tv_main_dynamic)
     TextView mTvMainDynamic;
     @BindView(R.id.iv_main_message)
     ImageView mIvMainMessage;
@@ -40,7 +42,8 @@ public class MainActivity extends BaseActivity implements ViewPager.OnPageChange
     ImageView mIvMainMore;
     @BindView(R.id.tv_main_more)
     TextView mTvMainMore;
-
+    @BindView(R.id.main_toolbar)
+    Toolbar mToolbar;
     private List<Fragment> mFragmentList = new ArrayList<>();
 
     @Override
@@ -56,6 +59,13 @@ public class MainActivity extends BaseActivity implements ViewPager.OnPageChange
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Glide.with(this).load(R.drawable.main_main_home_blue).into(mIvHomePage);
+        mTvHomePage.setTextColor(getResources().getColor(R.color.lightblue));
+        setSupportActionBar(mToolbar);//TODO 自定义edittext
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.setTitle("");
+        }
         initMainViewPager();
         initSelectTabState();
     }
@@ -149,20 +159,20 @@ public class MainActivity extends BaseActivity implements ViewPager.OnPageChange
         }
     }
 
-    @OnClick({R.id.iv_home_page, R.id.iv_main_dynamic, R.id.iv_main_message, R.id.iv_main_more})
+    @OnClick({R.id.rl_main_mainhome, R.id.rl_main_dynamics, R.id.rl_main_message, R.id.rl_main_more})
     public void onViewClicked(View view) {
         switch (view.getId()) {
-            case R.id.iv_home_page:
-                sMainViewPager.setCurrentItem(0);
+            case R.id.rl_main_mainhome:
+                sMainViewPager.setCurrentItem(0, false);
                 break;
-            case R.id.iv_main_dynamic:
-                sMainViewPager.setCurrentItem(1);
+            case R.id.rl_main_dynamics:
+                sMainViewPager.setCurrentItem(1, false);
                 break;
-            case R.id.iv_main_message:
-                sMainViewPager.setCurrentItem(2);
+            case R.id.rl_main_message:
+                sMainViewPager.setCurrentItem(2, false);
                 break;
-            case R.id.iv_main_more:
-                sMainViewPager.setCurrentItem(3);
+            case R.id.rl_main_more:
+                sMainViewPager.setCurrentItem(3, false);
                 break;
         }
     }

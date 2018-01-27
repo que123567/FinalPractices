@@ -2,6 +2,8 @@ package com.qiuzhonghao.finalpractices.ui.activity;
 
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
+import android.support.v7.widget.DividerItemDecoration;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -11,6 +13,12 @@ import android.widget.TextView;
 
 import com.qiuzhonghao.finalpractices.R;
 import com.qiuzhonghao.finalpractices.base.BaseActivity;
+import com.qiuzhonghao.finalpractices.bean.MainHomeBean;
+import com.zhy.adapter.recyclerview.CommonAdapter;
+import com.zhy.adapter.recyclerview.base.ViewHolder;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -33,8 +41,10 @@ public class AuthorDetailActivity extends BaseActivity {
     @BindView(R.id.btn_author_chat)
     Button mBtnAuthorChat;
     @BindView(R.id.rv_author_works)
-    RecyclerView mRecyclerview;
+    RecyclerView mRecyclerView;
 
+    CommonAdapter<MainHomeBean> mMainHomeAdapter;
+    List<MainHomeBean> mBeanList;
 
     @Override
     public int getLayout() {
@@ -56,6 +66,8 @@ public class AuthorDetailActivity extends BaseActivity {
             actionbar.setDisplayHomeAsUpEnabled(true);
         }
         toolbarClickListen();
+        initData();
+        initAdapter();
 
     }
 
@@ -85,4 +97,50 @@ public class AuthorDetailActivity extends BaseActivity {
                 break;
         }
     }
+
+    /**
+     * 初始化用户主页数据
+     */
+    private void initData() {
+        mBeanList = new ArrayList<>();
+        MainHomeBean mainHomeBean = new MainHomeBean();
+        mainHomeBean.setTitleTime("15分钟");
+        mainHomeBean.setAuthor("肥肥鱼");
+        mBeanList.add(mainHomeBean);
+        mBeanList.add(mainHomeBean);
+        mBeanList.add(mainHomeBean);
+        mBeanList.add(mainHomeBean);
+    }
+
+
+    /**
+     * 初始化用户主页适配器
+     */
+    private void initAdapter() {
+        mMainHomeAdapter = new CommonAdapter<MainHomeBean>(this, R.layout.item_main_home, mBeanList) {
+            @Override
+            protected void convert(ViewHolder holder, MainHomeBean mainHomeBean, int position) {
+                holder.setText(R.id.tv_main_home_time, "12分钟");
+                initsetOnClick(holder);
+            }
+        };
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        mRecyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
+        mRecyclerView.setAdapter(mMainHomeAdapter);
+    }
+
+    /**
+     * 对item View内的布局项监听
+     *
+     * @param holder
+     */
+    private void initsetOnClick(ViewHolder holder) {
+        holder.setOnClickListener(R.id.iv_main_home_head, new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+            }
+        });
+
+    }
+
 }
