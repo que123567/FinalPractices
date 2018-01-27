@@ -39,7 +39,7 @@ public class MainHomeFragment extends Fragment {
     TextView mTvTime;
     @BindView(R.id.tv_main_home_title)
     TextView mTvTitle;
-    //    @BindView(R.id.tv_main_home_briefintro)
+    @BindView(R.id.tv_main_home_briefintro)
     TextView mTvBriefintro;
     @BindView(R.id.tv_main_home_vote_number)
     TextView mTVoteNumber;
@@ -60,7 +60,6 @@ public class MainHomeFragment extends Fragment {
         View itemView = inflater.inflate(R.layout.item_main_home, container, false);
         unbinder = ButterKnife.bind(this, itemView);
         mRecyclerView = view.findViewById(R.id.rv_main_home);
-        mTvBriefintro = itemView.findViewById(R.id.tv_main_home_briefintro);
         initData();
         initAdapter();
         return view;
@@ -89,17 +88,27 @@ public class MainHomeFragment extends Fragment {
             @Override
             protected void convert(ViewHolder holder, MainHomeBean mainHomeBean, int position) {
                 holder.setText(R.id.tv_main_home_time, "12分钟");
-                holder.setOnClickListener(R.id.iv_main_home_head, new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        startActivity(new Intent(getActivity(), AuthorDetailActivity.class));
-                    }
-                });
+                initsetOnClick(holder);
             }
         };
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         mRecyclerView.addItemDecoration(new DividerItemDecoration(getActivity(), DividerItemDecoration.VERTICAL));
         mRecyclerView.setAdapter(mMainHomeAdapter);
+    }
+
+    /**
+     * 对item View内的布局项监听
+     *
+     * @param holder
+     */
+    private void initsetOnClick(ViewHolder holder) {
+        holder.setOnClickListener(R.id.iv_main_home_head, new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getActivity(), AuthorDetailActivity.class));
+            }
+        });
+
     }
 
 

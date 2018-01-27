@@ -2,7 +2,7 @@ package com.qiuzhonghao.finalpractices.base;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,7 +10,7 @@ import android.widget.Toast;
 
 import butterknife.ButterKnife;
 
-public abstract class BaseActivity extends FragmentActivity {
+public abstract class BaseActivity extends AppCompatActivity {
     protected final String TAG = this.getClass().getSimpleName();
     private View mContextView = null;
 
