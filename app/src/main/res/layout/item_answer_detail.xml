@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+                                    xmlns:card_view="http://schemas.android.com/apk/res-auto"
                                     android:layout_width="match_parent"
-                                    android:layout_height="match_parent">
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="@dimen/margin_8_dp"
+                                    android:layout_marginBottom="@dimen/margin_8_dp"
+                                    card_view:cardCornerRadius="@dimen/careview_radius_12_dp">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -40,7 +44,7 @@
                 android:id="@+id/tv_answer_briefintro"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="不会 ，就这个问题，我当面问过中国解放军传染病医院（302）的医务部主任和传染科主任——他们同时也是中国第一支埃博拉疫区救援队的成员。救援队从非洲回来..."
+                android:text="不会,就这个问题，我当面问过中国解放军传染病医院（302）的医务部主任和传染科主任——他们同时也是中国第一支埃博拉疫区救援队的成员。救援队从非洲回来..."
                 android:textStyle="bold"/>
         </LinearLayout>
 

@@ -57,7 +57,6 @@ public class AnswerActivity extends BaseActivity {
         if (actionbar != null) {
             actionbar.setDisplayHomeAsUpEnabled(true);
             actionbar.setTitle("如何评价在野外长跑比赛中?");
-
         }
         initData();
         initAdapter();
@@ -84,7 +83,7 @@ public class AnswerActivity extends BaseActivity {
         mainHomeBean.setTitleTime("15分钟");
         mainHomeBean.setAuthor("肥肥鱼");
         mBeanList.add(mainHomeBean);
-        mBeanList.add(mainHomeBean);
+
         mBeanList.add(mainHomeBean);
         mBeanList.add(mainHomeBean);
         mBeanList.add(mainHomeBean);
@@ -99,10 +98,15 @@ public class AnswerActivity extends BaseActivity {
      * 初始化首页适配器
      */
     private void initAdapter() {
-        mMainHomeAdapter = new CommonAdapter<MainHomeBean>(this, R.layout.item_main_home, mBeanList) {
+        mMainHomeAdapter = new CommonAdapter<MainHomeBean>(this, R.layout.item_answer_detail, mBeanList) {
             @Override
             protected void convert(ViewHolder holder, MainHomeBean mainHomeBean, int position) {
-                holder.setText(R.id.tv_main_home_time, "12分钟");
+                holder.setOnClickListener(R.id.tv_answer_briefintro, new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        startActivity(AnswerDetailActivity.class);
+                    }
+                });
             }
         };
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
