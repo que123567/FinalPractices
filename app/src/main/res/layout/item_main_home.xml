@@ -29,7 +29,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/margin_8_dp"
-            android:layout_marginTop="@dimen/textsize_10_dp"
+            android:layout_marginTop="@dimen/textsize_10_sp"
             android:text="10分钟前"/>
 
     </LinearLayout>
@@ -46,7 +46,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/margin_8_dp"
             android:text="如果埃博拉病毒首先爆发在中国，中国人会被一波带走吗?"
-            android:textSize="@dimen/textsize_14_dp"
+            android:textSize="@dimen/textsize_14_sp"
             android:textStyle="bold"/>
 
         <TextView

@@ -31,7 +31,7 @@ public class ClearWriteEditText extends android.support.v7.widget.AppCompatEditT
     }
 
     public ClearWriteEditText(Context context, AttributeSet attrs) {
-        //这里构造方法也很重要，不加这个很多属性不能再XML里面定义
+        //获得XML里面自定义的属性
         this(context, attrs, android.R.attr.editTextStyle);
     }
 
@@ -43,7 +43,7 @@ public class ClearWriteEditText extends android.support.v7.widget.AppCompatEditT
 
     private void init() {
         mClearDrawable = getResources().getDrawable(R.drawable.search_clear_pressed_write);
-        mClearDrawable.setBounds(0, 0, mClearDrawable.getIntrinsicWidth(), mClearDrawable.getIntrinsicHeight());
+        mClearDrawable.setBounds(0, 0, mClearDrawable.getIntrinsicWidth() / 2, mClearDrawable.getIntrinsicHeight() / 2);
         setClearIconVisible(false);
         this.setOnFocusChangeListener(this);
         this.addTextChangedListener(this);

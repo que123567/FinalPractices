@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 import com.qiuzhonghao.finalpractices.R;
 import com.qiuzhonghao.finalpractices.bean.MainHomeBean;
+import com.qiuzhonghao.finalpractices.ui.activity.AnswerActivity;
 import com.qiuzhonghao.finalpractices.ui.activity.AuthorDetailActivity;
 import com.zhy.adapter.recyclerview.CommonAdapter;
 import com.zhy.adapter.recyclerview.base.ViewHolder;
@@ -77,6 +78,13 @@ public class MainHomeFragment extends Fragment {
         mBeanList.add(mainHomeBean);
         mBeanList.add(mainHomeBean);
         mBeanList.add(mainHomeBean);
+        mBeanList.add(mainHomeBean);
+        mBeanList.add(mainHomeBean);
+        mBeanList.add(mainHomeBean);
+        mBeanList.add(mainHomeBean);
+        mBeanList.add(mainHomeBean);
+        mBeanList.add(mainHomeBean);
+        mBeanList.add(mainHomeBean);
     }
 
 
@@ -106,6 +114,18 @@ public class MainHomeFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(getActivity(), AuthorDetailActivity.class));
+            }
+        });
+        holder.setOnClickListener(R.id.tv_main_home_briefintro, new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getActivity(), AnswerActivity.class));
+            }
+        });
+        holder.setOnClickListener(R.id.tv_main_home_title, new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getActivity(), AnswerActivity.class));
             }
         });
 

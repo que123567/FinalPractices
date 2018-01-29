@@ -24,6 +24,10 @@
         </activity>
         <activity android:name=".ui.activity.FullImageActivity">
         </activity>
+        <activity android:name=".ui.activity.AnswerActivity">
+        </activity>
+        <activity android:name=".ui.activity.AnswerDetailActivity">
+        </activity>
     </application>
 
 </manifest>
