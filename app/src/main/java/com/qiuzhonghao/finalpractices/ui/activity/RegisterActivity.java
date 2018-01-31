@@ -19,6 +19,7 @@ import com.qiuzhonghao.finalpractices.bean.ResultCodeBean;
 import com.qiuzhonghao.finalpractices.constant.API;
 import com.qiuzhonghao.finalpractices.network.LoginService;
 import com.qiuzhonghao.finalpractices.network.RegisterService;
+import com.qiuzhonghao.finalpractices.network.RxService;
 import com.qiuzhonghao.finalpractices.ui.custom.ClearWriteEditText;
 import com.qiuzhonghao.finalpractices.util.PhoneNumberUtil;
 
@@ -28,8 +29,6 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 import retrofit2.Retrofit;
-import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 
 public class RegisterActivity extends BaseActivity {
@@ -143,13 +142,11 @@ public class RegisterActivity extends BaseActivity {
             return;
         if (!checkIsSame(mEtPassword, mEtPasswordAgain))
             return;
-        //TODO API注册成功,添加账号
 
         String phoneNumber = mEtPhone.getText().toString();
         String password = mEtPassword.getText().toString();
         String nickname = mEtUserName.getText().toString();
         checkPhoneExist(phoneNumber, password, nickname);
-
 
     }
 
@@ -204,13 +201,15 @@ public class RegisterActivity extends BaseActivity {
      * -202->已存在
      */
     private void checkPhoneExist(final String phoneNumber, final String password, final String nickname) {
-        Retrofit mRetrofit = new Retrofit.Builder()
-                .baseUrl(API.LOGIN)
-                .addConverterFactory(GsonConverterFactory.create())
-                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-                .build();
+//        Retrofit mRetrofit = new Retrofit.Builder()
+//                .baseUrl(API.LOGIN)
+//                .addConverterFactory(GsonConverterFactory.create())
+//                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+//                .build();
 
-        LoginService loginService = mRetrofit.create(LoginService.class);
+        Retrofit retrofit = RxService.getRetrofitInstance(API.LOGIN);
+
+        LoginService loginService = retrofit.create(LoginService.class);
         loginService.checkUserExist(phoneNumber)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -235,13 +234,15 @@ public class RegisterActivity extends BaseActivity {
     }
 
     private void doUserRegister(final String phoneNumber, final String password, String nickname) {
-        Retrofit mRetrofit = new Retrofit.Builder()
-                .baseUrl(API.REGISTER)
-                .addConverterFactory(GsonConverterFactory.create())
-                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-                .build();
+//        Retrofit mRetrofit = new Retrofit.Builder()
+//                .baseUrl(API.REGISTER)
+//                .addConverterFactory(GsonConverterFactory.create())
+//                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+//                .build();
 
-        RegisterService registerService = mRetrofit.create(RegisterService.class);
+        Retrofit retrofit = RxService.getRetrofitInstance(API.REGISTER);
+
+        RegisterService registerService = retrofit.create(RegisterService.class);
         registerService.doRegister(phoneNumber, password, nickname)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

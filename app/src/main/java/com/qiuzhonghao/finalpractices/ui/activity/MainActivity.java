@@ -13,6 +13,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.qiuzhonghao.finalpractices.R;
 import com.qiuzhonghao.finalpractices.base.BaseActivity;
+import com.qiuzhonghao.finalpractices.ui.fragment.DynamicFragment;
 import com.qiuzhonghao.finalpractices.ui.fragment.MainHomeFragment;
 
 import java.util.ArrayList;
@@ -73,9 +74,9 @@ public class MainActivity extends BaseActivity implements ViewPager.OnPageChange
 
     private void initMainViewPager() {
         mFragmentList.add(new MainHomeFragment());
-        mFragmentList.add(new MainHomeFragment());
-        mFragmentList.add(new MainHomeFragment());
-        mFragmentList.add(new MainHomeFragment());
+        mFragmentList.add(new DynamicFragment());
+        mFragmentList.add(new DynamicFragment());
+        mFragmentList.add(new DynamicFragment());
 
         FragmentPagerAdapter fragmentPagerAdapter = new FragmentPagerAdapter(getSupportFragmentManager()) {
             @Override
