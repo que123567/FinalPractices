@@ -51,4 +51,5 @@ public class MainHomeBean {
     public void setVoteNumber(String voteNumber) {
         this.voteNumber = voteNumber;
     }
+
 }

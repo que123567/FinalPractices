@@ -7,10 +7,12 @@ package com.qiuzhonghao.finalpractices.constant;
 
 public class API {
 
-    public final static String BASE_URL = "http://192.168.0.103/";
+    public final static String BASE_URL = "http://192.168.0.102/";
     // 登录
     public final static String LOGIN = BASE_URL + "final/login/"; //登录接口
-//注册
+    //注册
+    public final static String REGISTER = BASE_URL + "final/register/"; //注册接口
+
 }
 
 

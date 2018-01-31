@@ -5,7 +5,8 @@ package com.qiuzhonghao.finalpractices.bean;
  * Created by QiuZhongHao.
  */
 
-public class ResponseBody {
+public class ResultCodeBean
+{
     int result_code;
 
     public int getResult_code() {

@@ -15,18 +15,28 @@ import android.widget.Toast;
 import com.qiuzhonghao.finalpractices.R;
 import com.qiuzhonghao.finalpractices.base.BaseActivity;
 import com.qiuzhonghao.finalpractices.base.myTextWatcher;
+import com.qiuzhonghao.finalpractices.bean.ResultCodeBean;
+import com.qiuzhonghao.finalpractices.constant.API;
+import com.qiuzhonghao.finalpractices.network.LoginService;
+import com.qiuzhonghao.finalpractices.network.RegisterService;
 import com.qiuzhonghao.finalpractices.ui.custom.ClearWriteEditText;
 import com.qiuzhonghao.finalpractices.util.PhoneNumberUtil;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.functions.Consumer;
+import io.reactivex.schedulers.Schedulers;
+import retrofit2.Retrofit;
+import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 
 public class RegisterActivity extends BaseActivity {
 
 
     @BindView(R.id.et_register_username)
-    ClearWriteEditText mEtUsername;
+    ClearWriteEditText mEtUserName;
     @BindView(R.id.et_register_phone)
     ClearWriteEditText mEtPhone;
     @BindView(R.id.et_register_password)
@@ -41,6 +51,7 @@ public class RegisterActivity extends BaseActivity {
     ImageView mIvBackground;
     @BindView(R.id.tv_register_forget)
     TextView mTvForget;
+
 
     @Override
     public int getLayout() {
@@ -57,6 +68,7 @@ public class RegisterActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setBackGroundAnnimaiton(mIvBackground);
         setEditTextWatcher();
+
 
     }
 
@@ -113,9 +125,13 @@ public class RegisterActivity extends BaseActivity {
      * 核对注册信息
      */
     private void checkRegisterInfo() {
-        if (checkEmpty(mEtUsername, "昵称"))
+        if (checkEmpty(mEtPhone, "账号"))
             return;
-        if (checkContainBlank(mEtUsername, "昵称"))
+        if (checkContainBlank(mEtPhone, "账号"))
+            return;
+        if (checkEmpty(mEtUserName, "昵称"))
+            return;
+        if (checkContainBlank(mEtUserName, "昵称"))
             return;
         if (checkEmpty(mEtPassword, "密码"))
             return;
@@ -128,12 +144,13 @@ public class RegisterActivity extends BaseActivity {
         if (!checkIsSame(mEtPassword, mEtPasswordAgain))
             return;
         //TODO API注册成功,添加账号
-        Intent intent = new Intent();
-        intent.putExtra("RegPhone", mEtPhone.getText().toString());
-        intent.putExtra("RegPassword", mEtPassword.getText().toString());
-        setResult(RESULT_OK, intent);
-        showToast("注册成功");
-        finish();
+
+        String phoneNumber = mEtPhone.getText().toString();
+        String password = mEtPassword.getText().toString();
+        String nickname = mEtUserName.getText().toString();
+        checkPhoneExist(phoneNumber, password, nickname);
+
+
     }
 
     /**
@@ -178,5 +195,77 @@ public class RegisterActivity extends BaseActivity {
             return true;
         }
         return false;
+    }
+
+    /**
+     * API:查询电话号码是否存在
+     * 返回结果:
+     * 1->不存在
+     * -202->已存在
+     */
+    private void checkPhoneExist(final String phoneNumber, final String password, final String nickname) {
+        Retrofit mRetrofit = new Retrofit.Builder()
+                .baseUrl(API.LOGIN)
+                .addConverterFactory(GsonConverterFactory.create())
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+                .build();
+
+        LoginService loginService = mRetrofit.create(LoginService.class);
+        loginService.checkUserExist(phoneNumber)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Consumer<ResultCodeBean>() {
+                    @Override
+                    public void accept(ResultCodeBean resultCodeBean) throws Exception {
+                        if (resultCodeBean.getResult_code() == 0) {
+                            doUserRegister(phoneNumber, password, nickname);
+                        } else {
+                            Toast.makeText(RegisterActivity.this, "该用户已存在,无法注册!", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) throws Exception {
+                        showToast("异常");
+                    }
+                });
+
+
+    }
+
+    private void doUserRegister(final String phoneNumber, final String password, String nickname) {
+        Retrofit mRetrofit = new Retrofit.Builder()
+                .baseUrl(API.REGISTER)
+                .addConverterFactory(GsonConverterFactory.create())
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+                .build();
+
+        RegisterService registerService = mRetrofit.create(RegisterService.class);
+        registerService.doRegister(phoneNumber, password, nickname)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Consumer<ResultCodeBean>() {
+                    @Override
+                    public void accept(ResultCodeBean resultCodeBean) throws Exception {
+                        if (resultCodeBean.getResult_code() == 0) {
+                            Toast.makeText(RegisterActivity.this, "注册成功", Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent();
+                            intent.putExtra("RegPhone", phoneNumber);
+                            intent.putExtra("RegPassword", password);
+                            setResult(RESULT_OK, intent);
+                            finish();
+                        } else {
+                            Toast.makeText(RegisterActivity.this, "注册失败", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) throws Exception {
+                        showToast("异常");
+                    }
+                });
+
     }
 }

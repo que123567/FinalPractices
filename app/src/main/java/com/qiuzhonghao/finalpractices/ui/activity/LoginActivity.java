@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
@@ -15,20 +14,19 @@ import android.widget.Toast;
 import com.qiuzhonghao.finalpractices.R;
 import com.qiuzhonghao.finalpractices.base.BaseActivity;
 import com.qiuzhonghao.finalpractices.base.myTextWatcher;
-import com.qiuzhonghao.finalpractices.bean.ResponseBody;
+import com.qiuzhonghao.finalpractices.bean.ResultCodeBean;
 import com.qiuzhonghao.finalpractices.constant.API;
 import com.qiuzhonghao.finalpractices.network.LoginService;
+import com.qiuzhonghao.finalpractices.network.RxService;
 import com.qiuzhonghao.finalpractices.ui.custom.ClearWriteEditText;
 import com.qiuzhonghao.finalpractices.util.PhoneNumberUtil;
 
 import butterknife.BindView;
 import butterknife.OnClick;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.functions.Consumer;
+import io.reactivex.schedulers.Schedulers;
 import retrofit2.Retrofit;
-import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 public class LoginActivity extends BaseActivity {
     @BindView(R.id.btn_login)
@@ -119,10 +117,10 @@ public class LoginActivity extends BaseActivity {
             etPassword.setShakeAnimation();
             return;
         }
-        //TODO API登录成功
-        checkPhoneExist();
-//        startActivity(MainActivity.class);
+        checkPhoneAndPassword(phoneNumber, password);
+
     }
+
 
     /**
      * 注册页面
@@ -152,26 +150,36 @@ public class LoginActivity extends BaseActivity {
         }
     }
 
-    private void checkPhoneExist() {
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(API.LOGIN)
-                .addConverterFactory(GsonConverterFactory.create())
-                .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
-                .build();
-
+    /**
+     * 登录接口,验证账号密码
+     *
+     * @param phoneNumber
+     * @param password
+     */
+    private void checkPhoneAndPassword(String phoneNumber, String password) {
+        Retrofit retrofit = RxService.getRetrofitInstance(API.LOGIN);
         LoginService loginService = retrofit.create(LoginService.class);
-        Call<ResponseBody> call = loginService.getLoginInfo("15005025859");
-        call.enqueue(new Callback<ResponseBody>() {
-            @Override
-            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                int i = 1;
-            }
+        loginService.checkUserPassword(phoneNumber, password)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Consumer<ResultCodeBean>() {
+                    @Override
+                    public void accept(ResultCodeBean resultCodeBean) throws Exception {
+                        if (resultCodeBean.getResult_code() == 0) {
+                            showToast("登录成功");
+                            startActivity(MainActivity.class);
+                            finish();
+                        } else if (resultCodeBean.getResult_code() == -101) {
+                            showToast("账号或密码错误");
+                        }
+                    }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) throws Exception {
+                        showToast("登录失败");
+                    }
+                });
 
-            @Override
-            public void onFailure(Call<ResponseBody> call, Throwable t) {
-                Log.d("LoginActivity", "error");
-            }
-        });
 
     }
 
