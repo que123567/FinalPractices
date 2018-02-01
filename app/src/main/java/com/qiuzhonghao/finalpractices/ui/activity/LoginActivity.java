@@ -55,6 +55,7 @@ public class LoginActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setBackGroundAnnimaiton(ivBackground);
         setEditTextWatcher();
+        startActivity(MainActivity.class);
     }
 
 
@@ -179,8 +180,6 @@ public class LoginActivity extends BaseActivity {
                         showToast("登录失败");
                     }
                 });
-
-
     }
 
 }

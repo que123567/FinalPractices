@@ -27,7 +27,9 @@
     <dimen name="textsize_24_sp">24sp</dimen>
     <dimen name="textsize_32_sp">32sp</dimen>
     <dimen name="textsize_48_sp">48sp</dimen>
+
     <!--cardview -->
+    <dimen name="careview_radius_6_dp">6dp</dimen>
     <dimen name="careview_radius_8_dp">8dp</dimen>
     <dimen name="careview_radius_10_dp">10dp</dimen>
     <dimen name="careview_radius_12_dp">12dp</dimen>

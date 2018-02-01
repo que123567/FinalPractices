@@ -147,7 +147,7 @@
                     android:layout_below="@+id/iv_main_message"
                     android:layout_centerHorizontal="true"
                     android:layout_marginTop="3dp"
-                    android:text="私信"
+                    android:text="通知"
                     android:textColor="#abadbb"
                     android:textSize="12sp"/>
 
