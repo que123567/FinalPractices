@@ -34,4 +34,7 @@
     <dimen name="careview_radius_10_dp">10dp</dimen>
     <dimen name="careview_radius_12_dp">12dp</dimen>
     <dimen name="careview_radius_14_dp">14dp</dimen>
+    <!--layoutWidth-->
+    <dimen name="layout_width_25_dp">25dp</dimen>
+    <dimen name="layout_width_50_dp">50dp</dimen>
 </resources>

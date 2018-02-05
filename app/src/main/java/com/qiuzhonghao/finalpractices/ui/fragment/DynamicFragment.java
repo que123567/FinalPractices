@@ -68,6 +68,7 @@ public class DynamicFragment extends Fragment {
         getDynamicInfo();
     }
 
+
     /**
      * 初始化动态适配器
      */
@@ -109,4 +110,5 @@ public class DynamicFragment extends Fragment {
                     }
                 });
     }
+
 }

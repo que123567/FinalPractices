@@ -12,16 +12,16 @@
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/iv_main_home_head"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="@dimen/layout_width_50_dp"
+            android:layout_height="@dimen/layout_width_50_dp"
             android:focusable="false"
-            android:src="@drawable/main_home_author"/>
+            android:src="@drawable/main_notice_head_1"/>
 
         <TextView
             android:id="@+id/tv_main_home_author"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="@dimen/margin_20_dp"
             android:text="菲菲毛赞同了回答"/>
 
         <TextView
@@ -29,7 +29,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/margin_8_dp"
-            android:layout_marginTop="@dimen/textsize_10_sp"
+            android:layout_marginTop="@dimen/margin_20_dp"
             android:text="10分钟前"/>
 
     </LinearLayout>

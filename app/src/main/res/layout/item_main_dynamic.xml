@@ -59,8 +59,11 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/margin_50_dp"
                 android:layout_marginRight="@dimen/margin_16_dp"
-                android:text="不会,就这个问题，我当面问过中国解放军传染病医院（302）的医务部主任和传染科主任——他们同时也是中国第一支埃博拉疫区救援队的成员。救援队从非洲回来..."
-                android:textStyle="italic"/>
+                android:ellipsize="end"
+                android:maxEms="120"
+                android:maxLines="4"
+                android:text="不会,就这个问题，我当面问过中国解放军传染病医院（302）的医务部主任和传染科主任——他们同时也是中国第一支埃博拉疫区救援队的成员。救援队从非洲回来...">
+            </TextView>
         </LinearLayout>
 
         <LinearLayout
