@@ -15,6 +15,7 @@ import com.qiuzhonghao.finalpractices.R;
 import com.qiuzhonghao.finalpractices.base.BaseActivity;
 import com.qiuzhonghao.finalpractices.ui.fragment.DynamicFragment;
 import com.qiuzhonghao.finalpractices.ui.fragment.MainHomeFragment;
+import com.qiuzhonghao.finalpractices.ui.fragment.MoreFragment;
 import com.qiuzhonghao.finalpractices.ui.fragment.NoticeFragment;
 
 import java.util.ArrayList;
@@ -77,7 +78,7 @@ public class MainActivity extends BaseActivity implements ViewPager.OnPageChange
         mFragmentList.add(new MainHomeFragment());
         mFragmentList.add(new DynamicFragment());
         mFragmentList.add(new NoticeFragment());
-        mFragmentList.add(new DynamicFragment());
+        mFragmentList.add(new MoreFragment());
 
         FragmentPagerAdapter fragmentPagerAdapter = new FragmentPagerAdapter(getSupportFragmentManager()) {
             @Override

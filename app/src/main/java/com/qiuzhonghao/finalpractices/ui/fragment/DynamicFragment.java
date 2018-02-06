@@ -1,8 +1,10 @@
 package com.qiuzhonghao.finalpractices.ui.fragment;
 
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -18,6 +20,7 @@ import com.qiuzhonghao.finalpractices.network.DynamicService;
 import com.qiuzhonghao.finalpractices.network.RxService;
 import com.zhy.adapter.recyclerview.CommonAdapter;
 import com.zhy.adapter.recyclerview.base.ViewHolder;
+import com.zhy.adapter.recyclerview.wrapper.LoadMoreWrapper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,12 +35,14 @@ import retrofit2.Retrofit;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class DynamicFragment extends Fragment {
+public class DynamicFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener {
 
     RecyclerView mRecyclerView;
     Unbinder unbinder;
     CommonAdapter<DynamicBean> mMainHomeAdapter;
     List<DynamicBean> mBeanList;
+    LoadMoreWrapper mLoadMoreWrapper;
+    private SwipeRefreshLayout mSwipeLayout;
 
     public DynamicFragment() {
     }
@@ -49,10 +54,25 @@ public class DynamicFragment extends Fragment {
         View itemView = inflater.inflate(R.layout.item_main_dynamic, container, false);
         unbinder = ButterKnife.bind(this, itemView);
         mRecyclerView = view.findViewById(R.id.rv_dynamic);
-        initData();
-        initAdapter();
+        mSwipeLayout = view.findViewById(R.id.swipe_dynamic);
+        initSwipeRefreshLayout(mSwipeLayout);//下拉刷新
+        initAdapter();//适配器
+        getData();//数据源
         return view;
     }
+
+    /**
+     * 下拉刷新
+     *
+     * @param swipeLayout
+     */
+    private void initSwipeRefreshLayout(SwipeRefreshLayout swipeLayout) {
+        swipeLayout.setColorSchemeColors(Color.BLUE, Color.GREEN, Color.YELLOW, Color.RED);
+        mSwipeLayout.setDistanceToTriggerSync(200);
+        mSwipeLayout.setProgressBackgroundColorSchemeColor(Color.WHITE);
+        mSwipeLayout.setOnRefreshListener(this);
+    }
+
 
     @Override
     public void onDestroyView() {
@@ -61,10 +81,9 @@ public class DynamicFragment extends Fragment {
     }
 
     /**
-     * 初始化动态数据
+     * 获取信息
      */
-    private void initData() {
-        mBeanList = new ArrayList<>();
+    private void getData() {
         getDynamicInfo();
     }
 
@@ -73,6 +92,7 @@ public class DynamicFragment extends Fragment {
      * 初始化动态适配器
      */
     private void initAdapter() {
+        mBeanList = new ArrayList<>();
         mMainHomeAdapter = new CommonAdapter<DynamicBean>(getActivity(), R.layout.item_main_dynamic, mBeanList) {
 
             @Override
@@ -83,9 +103,17 @@ public class DynamicFragment extends Fragment {
                 holder.setText(R.id.tv_dynamic_vote_number, dynamicBean.getDynamic_vote_number());
             }
         };
+        mLoadMoreWrapper = new LoadMoreWrapper(mMainHomeAdapter);
+        mLoadMoreWrapper.setLoadMoreView(R.layout.default_loading);
+        mLoadMoreWrapper.setOnLoadMoreListener(new LoadMoreWrapper.OnLoadMoreListener() {
+            @Override
+            public void onLoadMoreRequested() {
+//                getData();
+            }
+        });
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         mRecyclerView.addItemDecoration(new DividerItemDecoration(getActivity(), DividerItemDecoration.VERTICAL));
-        mRecyclerView.setAdapter(mMainHomeAdapter);
+        mRecyclerView.setAdapter(mLoadMoreWrapper);
     }
 
     /**
@@ -101,7 +129,7 @@ public class DynamicFragment extends Fragment {
                     @Override
                     public void accept(List<DynamicBean> dynamicBeans) throws Exception {
                         mBeanList.addAll(dynamicBeans);
-                        mMainHomeAdapter.notifyDataSetChanged();
+                        mLoadMoreWrapper.notifyDataSetChanged();
                     }
                 }, new Consumer<Throwable>() {
                     @Override
@@ -111,4 +139,9 @@ public class DynamicFragment extends Fragment {
                 });
     }
 
+    @Override
+    public void onRefresh() {
+        getDynamicInfo();
+        mSwipeLayout.setRefreshing(false);
+    }
 }
