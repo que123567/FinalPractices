@@ -43,10 +43,11 @@
         <TextView
             android:id="@+id/tv_main_home_title"
             android:layout_width="wrap_content"
+            android:textColor="@color/black"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/margin_8_dp"
             android:text="如果埃博拉病毒首先爆发在中国，中国人会被一波带走吗?"
-            android:textSize="@dimen/textsize_14_sp"
+            android:textSize="@dimen/textsize_18_sp"
             android:textStyle="bold"/>
 
         <TextView
@@ -65,14 +66,26 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/margin_8_dp"
-            android:text="10 赞同"/>
+            android:text="10"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/margin_8_dp"
+            android:text="赞同"/>
 
         <TextView
             android:id="@+id/tv_main_home_comment_number"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/margin_8_dp"
-            android:text="63 评论"/>
+            android:text="63"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/margin_8_dp"
+            android:text="评论"/>
     </LinearLayout>
 
 </LinearLayout>

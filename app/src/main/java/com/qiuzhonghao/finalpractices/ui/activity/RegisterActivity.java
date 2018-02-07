@@ -201,12 +201,6 @@ public class RegisterActivity extends BaseActivity {
      * -202->已存在
      */
     private void checkPhoneExist(final String phoneNumber, final String password, final String nickname) {
-//        Retrofit mRetrofit = new Retrofit.Builder()
-//                .baseUrl(API.LOGIN)
-//                .addConverterFactory(GsonConverterFactory.create())
-//                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-//                .build();
-
         Retrofit retrofit = RxService.getRetrofitInstance(API.LOGIN);
 
         LoginService loginService = retrofit.create(LoginService.class);
@@ -234,12 +228,6 @@ public class RegisterActivity extends BaseActivity {
     }
 
     private void doUserRegister(final String phoneNumber, final String password, String nickname) {
-//        Retrofit mRetrofit = new Retrofit.Builder()
-//                .baseUrl(API.REGISTER)
-//                .addConverterFactory(GsonConverterFactory.create())
-//                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-//                .build();
-
         Retrofit retrofit = RxService.getRetrofitInstance(API.REGISTER);
 
         RegisterService registerService = retrofit.create(RegisterService.class);

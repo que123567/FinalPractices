@@ -2,20 +2,30 @@ package com.qiuzhonghao.finalpractices.ui.fragment;
 
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
+import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.qiuzhonghao.finalpractices.R;
-import com.qiuzhonghao.finalpractices.bean.MainHomeBean;
+import com.qiuzhonghao.finalpractices.bean.MainHomeArticleBean;
+import com.qiuzhonghao.finalpractices.constant.API;
+import com.qiuzhonghao.finalpractices.network.ArticleService;
+import com.qiuzhonghao.finalpractices.network.RxService;
 import com.qiuzhonghao.finalpractices.ui.activity.AnswerActivity;
 import com.qiuzhonghao.finalpractices.ui.activity.AuthorDetailActivity;
+import com.qiuzhonghao.finalpractices.ui.custom.SearchEditText;
 import com.zhy.adapter.recyclerview.CommonAdapter;
 import com.zhy.adapter.recyclerview.base.ViewHolder;
 
@@ -26,11 +36,15 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import de.hdodenhof.circleimageview.CircleImageView;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.functions.Consumer;
+import io.reactivex.schedulers.Schedulers;
+import retrofit2.Retrofit;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class MainHomeFragment extends Fragment {
+public class MainHomeFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener {
 
     @BindView(R.id.iv_main_home_head)
     CircleImageView mIvHead;
@@ -47,10 +61,12 @@ public class MainHomeFragment extends Fragment {
     @BindView(R.id.tv_main_home_comment_number)
     TextView mTvommentNumber;
 
+    SearchEditText mSearchEditText;
     RecyclerView mRecyclerView;
-    CommonAdapter<MainHomeBean> mMainHomeAdapter;
-    List<MainHomeBean> mBeanList;
+    CommonAdapter<MainHomeArticleBean> mMainHomeAdapter;
+    List<MainHomeArticleBean> mBeanList;
     Unbinder unbinder;
+    SwipeRefreshLayout mSwipeRefreshLayout;
 
     public MainHomeFragment() {
     }
@@ -61,8 +77,12 @@ public class MainHomeFragment extends Fragment {
         View itemView = inflater.inflate(R.layout.item_main_home, container, false);
         unbinder = ButterKnife.bind(this, itemView);
         mRecyclerView = view.findViewById(R.id.rv_main_home);
-        initData();
+        mSearchEditText = view.findViewById(R.id.et_main_search);
+        mSwipeRefreshLayout = view.findViewById(R.id.swipe_main_home);
+        initSwipeRefreshLayout(mSwipeRefreshLayout);
+        setOnEditorActionListener(mSearchEditText);
         initAdapter();
+        initData();
         return view;
     }
 
@@ -70,21 +90,7 @@ public class MainHomeFragment extends Fragment {
      * 初始化首页数据
      */
     private void initData() {
-        mBeanList = new ArrayList<>();
-        MainHomeBean mainHomeBean = new MainHomeBean();
-        mainHomeBean.setTitleTime("15分钟");
-        mainHomeBean.setAuthor("肥肥鱼");
-        mBeanList.add(mainHomeBean);
-        mBeanList.add(mainHomeBean);
-        mBeanList.add(mainHomeBean);
-        mBeanList.add(mainHomeBean);
-        mBeanList.add(mainHomeBean);
-        mBeanList.add(mainHomeBean);
-        mBeanList.add(mainHomeBean);
-        mBeanList.add(mainHomeBean);
-        mBeanList.add(mainHomeBean);
-        mBeanList.add(mainHomeBean);
-        mBeanList.add(mainHomeBean);
+        getMainHomeInfo();
     }
 
 
@@ -92,10 +98,16 @@ public class MainHomeFragment extends Fragment {
      * 初始化首页适配器
      */
     private void initAdapter() {
-        mMainHomeAdapter = new CommonAdapter<MainHomeBean>(getActivity(), R.layout.item_main_home, mBeanList) {
+        mBeanList = new ArrayList<>();
+        mMainHomeAdapter = new CommonAdapter<MainHomeArticleBean>(getActivity(), R.layout.item_main_home, mBeanList) {
             @Override
-            protected void convert(ViewHolder holder, MainHomeBean mainHomeBean, int position) {
-                holder.setText(R.id.tv_main_home_time, "12分钟");
+            protected void convert(ViewHolder holder, MainHomeArticleBean mainHomeBean, int position) {
+                holder.setText(R.id.tv_main_home_author, mainHomeBean.getArticle_author());
+                holder.setText(R.id.tv_main_home_time, mainHomeBean.getArticle_time());
+                holder.setText(R.id.tv_main_home_title, mainHomeBean.getArticle_name());
+                holder.setText(R.id.tv_main_home_briefintro, mainHomeBean.getArticle_content());
+                holder.setText(R.id.tv_main_home_vote_number, mainHomeBean.getArticle_vote_number());
+                holder.setText(R.id.tv_main_home_comment_number, mainHomeBean.getArticle_comment_number());
                 initsetOnClick(holder);
             }
         };
@@ -131,11 +143,102 @@ public class MainHomeFragment extends Fragment {
 
     }
 
+    /**
+     * EditText回车键监听
+     *
+     * @param editText
+     */
+    private void setOnEditorActionListener(EditText editText) {
+        editText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if (actionId == EditorInfo.IME_ACTION_SEND || actionId == EditorInfo.IME_ACTION_DONE
+                        || (event != null && KeyEvent.KEYCODE_ENTER == event.getKeyCode() && KeyEvent.ACTION_DOWN == event.getAction())) {
+                    if (v != null) {
+                        getSearchInfo(v.getText().toString().trim());//搜索
+                    }
+                    return true;
+                }
+                return false;
+            }
+        });
+
+    }
+
+    /**
+     * 搜索
+     */
+    private void getSearchInfo(String str) {
+        mBeanList.clear();
+        Retrofit retrofit = RxService.getRetrofitInstance(API.ARTICLE);
+        ArticleService articleService = retrofit.create(ArticleService.class);
+        articleService.getSearchInfo(str).subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Consumer<List<MainHomeArticleBean>>() {
+                    @Override
+                    public void accept(List<MainHomeArticleBean> mainHomeArticleBeans) throws Exception {
+                        mBeanList.addAll(mainHomeArticleBeans);
+                        mMainHomeAdapter.notifyDataSetChanged();
+                    }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) throws Exception {
+                        Toast.makeText(getActivity(), "异常", Toast.LENGTH_SHORT).show();
+                    }
+                });
+
+    }
+
+    /**
+     * 获取主页数据
+     */
+    private void getMainHomeInfo() {
+        mBeanList.clear();
+        Retrofit retrofit = RxService.getRetrofitInstance(API.ARTICLE);
+
+        ArticleService articleService = retrofit.create(ArticleService.class);
+        articleService.getArticleInfo()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Consumer<List<MainHomeArticleBean>>() {
+                    @Override
+                    public void accept(List<MainHomeArticleBean> mainHomeArticleBeans) throws Exception {
+                        mBeanList.addAll(mainHomeArticleBeans);
+                        mMainHomeAdapter.notifyDataSetChanged();
+                    }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) throws Exception {
+                        Toast.makeText(getActivity(), "异常", Toast.LENGTH_SHORT).show();
+                    }
+                });
+
+    }
+
+
+    /**
+     * 下拉刷新
+     *
+     * @param swipeRefreshLayout
+     */
+    private void initSwipeRefreshLayout(SwipeRefreshLayout swipeRefreshLayout) {
+        swipeRefreshLayout.setColorSchemeColors(Color.BLUE, Color.GREEN, Color.YELLOW, Color.RED);
+        swipeRefreshLayout.setDistanceToTriggerSync(200);
+        swipeRefreshLayout.setProgressBackgroundColorSchemeColor(Color.WHITE);
+        swipeRefreshLayout.setOnRefreshListener(this);
+    }
+
+
+    @Override
+    public void onRefresh() {
+        getMainHomeInfo();
+        mSwipeRefreshLayout.setRefreshing(false);
+    }
+
 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
         unbinder.unbind();
     }
-
 }
