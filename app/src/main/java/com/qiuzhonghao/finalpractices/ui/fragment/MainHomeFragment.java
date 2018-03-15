@@ -26,6 +26,7 @@ import com.qiuzhonghao.finalpractices.network.RxService;
 import com.qiuzhonghao.finalpractices.ui.activity.AnswerActivity;
 import com.qiuzhonghao.finalpractices.ui.activity.AuthorDetailActivity;
 import com.qiuzhonghao.finalpractices.ui.custom.SearchEditText;
+import com.qiuzhonghao.finalpractices.util.TimeTransferUtils;
 import com.zhy.adapter.recyclerview.CommonAdapter;
 import com.zhy.adapter.recyclerview.base.ViewHolder;
 
@@ -40,6 +41,8 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 import retrofit2.Retrofit;
+
+import static com.google.common.base.Preconditions.checkNotNull;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -59,7 +62,7 @@ public class MainHomeFragment extends Fragment implements SwipeRefreshLayout.OnR
     @BindView(R.id.tv_main_home_vote_number)
     TextView mTVoteNumber;
     @BindView(R.id.tv_main_home_comment_number)
-    TextView mTvommentNumber;
+    TextView mTvCommentNumber;
 
     SearchEditText mSearchEditText;
     RecyclerView mRecyclerView;
@@ -103,12 +106,12 @@ public class MainHomeFragment extends Fragment implements SwipeRefreshLayout.OnR
             @Override
             protected void convert(ViewHolder holder, MainHomeArticleBean mainHomeBean, int position) {
                 holder.setText(R.id.tv_main_home_author, mainHomeBean.getArticle_author());
-                holder.setText(R.id.tv_main_home_time, mainHomeBean.getArticle_time());
+                holder.setText(R.id.tv_main_home_time, TimeTransferUtils.dateCalculator(mainHomeBean.getArticle_time(), "-"));
                 holder.setText(R.id.tv_main_home_title, mainHomeBean.getArticle_name());
                 holder.setText(R.id.tv_main_home_briefintro, mainHomeBean.getArticle_content());
                 holder.setText(R.id.tv_main_home_vote_number, mainHomeBean.getArticle_vote_number());
                 holder.setText(R.id.tv_main_home_comment_number, mainHomeBean.getArticle_comment_number());
-                initsetOnClick(holder);
+                initsetOnClick(holder, position);
             }
         };
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
@@ -121,7 +124,7 @@ public class MainHomeFragment extends Fragment implements SwipeRefreshLayout.OnR
      *
      * @param holder
      */
-    private void initsetOnClick(ViewHolder holder) {
+    private void initsetOnClick(ViewHolder holder, final int position) {
         holder.setOnClickListener(R.id.iv_main_home_head, new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -131,16 +134,28 @@ public class MainHomeFragment extends Fragment implements SwipeRefreshLayout.OnR
         holder.setOnClickListener(R.id.tv_main_home_briefintro, new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getActivity(), AnswerActivity.class));
+                translateBeanInfo(position);
             }
         });
         holder.setOnClickListener(R.id.tv_main_home_title, new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getActivity(), AnswerActivity.class));
+                translateBeanInfo(position);
             }
         });
 
+    }
+
+    /**
+     * 主页数据传递至问题回答界面
+     *
+     * @param position
+     */
+    private void translateBeanInfo(int position) {
+        checkNotNull(mBeanList);//guava 判空
+        Intent intent = new Intent(getActivity(), AnswerActivity.class);
+        intent.putExtra("MainHomeBean", mBeanList.get(position));
+        startActivity(intent);
     }
 
     /**
@@ -179,6 +194,7 @@ public class MainHomeFragment extends Fragment implements SwipeRefreshLayout.OnR
                     public void accept(List<MainHomeArticleBean> mainHomeArticleBeans) throws Exception {
                         mBeanList.addAll(mainHomeArticleBeans);
                         mMainHomeAdapter.notifyDataSetChanged();
+                        Toast.makeText(getActivity(), "搜索成功", Toast.LENGTH_SHORT).show();
                     }
                 }, new Consumer<Throwable>() {
                     @Override
@@ -233,6 +249,7 @@ public class MainHomeFragment extends Fragment implements SwipeRefreshLayout.OnR
     public void onRefresh() {
         getMainHomeInfo();
         mSwipeRefreshLayout.setRefreshing(false);
+        Toast.makeText(getActivity(), "已刷新", Toast.LENGTH_SHORT).show();
     }
 
 

@@ -3,8 +3,8 @@
                                     xmlns:card_view="http://schemas.android.com/apk/res-auto"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:layout_marginTop="@dimen/margin_8_dp"
                                     android:layout_marginBottom="@dimen/margin_8_dp"
+                                    android:layout_marginTop="@dimen/margin_8_dp"
                                     card_view:cardCornerRadius="@dimen/careview_radius_12_dp">
 
     <LinearLayout
@@ -44,8 +44,9 @@
                 android:id="@+id/tv_answer_briefintro"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="不会,就这个问题，我当面问过中国解放军传染病医院（302）的医务部主任和传染科主任——他们同时也是中国第一支埃博拉疫区救援队的成员。救援队从非洲回来..."
-                android:textStyle="bold"/>
+                android:ellipsize="end"
+                android:maxEms="120"
+                android:maxLines="4"/>
         </LinearLayout>
 
         <LinearLayout

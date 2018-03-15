@@ -12,8 +12,8 @@
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/iv_main_home_head"
-            android:layout_width="@dimen/layout_width_50_dp"
-            android:layout_height="@dimen/layout_width_50_dp"
+            android:layout_width="@dimen/layout_width_35_dp"
+            android:layout_height="@dimen/layout_width_35_dp"
             android:focusable="false"
             android:src="@drawable/main_notice_head_1"/>
 
@@ -21,15 +21,22 @@
             android:id="@+id/tv_main_home_author"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_20_dp"
-            android:text="菲菲毛赞同了回答"/>
+            android:layout_marginTop="@dimen/margin_14_dp"
+            android:text="菲菲毛"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_14_dp"
+            android:layout_marginLeft="@dimen/margin_8_dp"
+            android:text="赞同了该问题"/>
 
         <TextView
             android:id="@+id/tv_main_home_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/margin_8_dp"
-            android:layout_marginTop="@dimen/margin_20_dp"
+            android:layout_marginTop="@dimen/margin_14_dp"
             android:text="10分钟前"/>
 
     </LinearLayout>
@@ -37,16 +44,18 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/margin_8_dp"
+        android:layout_marginBottom="@dimen/margin_8_dp"
+        android:layout_marginLeft="@dimen/margin_8_dp"
+        android:layout_marginRight="@dimen/margin_8_dp"
         android:orientation="vertical">
 
         <TextView
             android:id="@+id/tv_main_home_title"
             android:layout_width="wrap_content"
-            android:textColor="@color/black"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/margin_8_dp"
             android:text="如果埃博拉病毒首先爆发在中国，中国人会被一波带走吗?"
+            android:textColor="@color/black"
             android:textSize="@dimen/textsize_18_sp"
             android:textStyle="bold"/>
 
@@ -54,6 +63,9 @@
             android:id="@+id/tv_main_home_briefintro"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:maxEms="120"
+            android:maxLines="4"
             android:text="不会 ，就这个问题，我当面问过中国解放军传染病医院（302）的医务部主任和传染科主任——他们同时也是中国第一支埃博拉疫区救援队的成员。救援队从非洲回来..."/>
     </LinearLayout>
 
@@ -66,12 +78,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/margin_8_dp"
-            android:text="10"/>
+            android:text="10"
+            android:textStyle="bold"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/margin_8_dp"
+            android:layout_marginTop="@dimen/margin_8_dp"
             android:text="赞同"/>
 
         <TextView
@@ -79,13 +92,20 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/margin_8_dp"
-            android:text="63"/>
+            android:text="63"
+            android:textStyle="bold"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/margin_8_dp"
+            android:layout_marginTop="@dimen/margin_8_dp"
             android:text="评论"/>
     </LinearLayout>
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/margin_6_dp"
+        android:background="@color/lightgray">
+
+    </View>
 </LinearLayout>

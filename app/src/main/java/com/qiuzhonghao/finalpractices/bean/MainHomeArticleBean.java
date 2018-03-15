@@ -1,11 +1,13 @@
 package com.qiuzhonghao.finalpractices.bean;
 
+import java.io.Serializable;
+
 /**
  * 2018/2/7 11:16,
  * Created by QiuZhongHao.
  */
 
-public class MainHomeArticleBean {
+public class MainHomeArticleBean implements Serializable {
     String article_name;
     String article_time;
     String article_vote_number;

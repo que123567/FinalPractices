@@ -72,39 +72,36 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <RelativeLayout
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
             <TextView
+                android:id="@+id/tv_answer_detail_content"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="@dimen/textsize_16_sp"
-                android:layout_marginBottom="@dimen/margin_48_dp"
-                android:layout_marginLeft="@dimen/margin_8_dp"
-                android:layout_marginRight="@dimen/margin_8_dp"
-                android:layout_marginTop="@dimen/margin_8_dp"
-                android:text="刚看完《南极之恋》点映回来，点映很棒，完全能给大家解答了这个问题。两个人不仅可以能活下去，而且活得还不算差。根据电影内容，给大家科普关于吃与住的问题：
+                android:layout_margin="@dimen/margin_12_dp"
+                android:textSize="@dimen/textsize_20_sp"/>
 
-在南极吃的东西其实特别少，物资也不多，很多国家科考站都是两年才补充一次，基本都是冷冻的肉啊、罐头什么的。中国科考站相对比较幸运，碰见《南极之恋》剧组拍摄，基本上都是剧组日常餐：紫菜蛋花汤、香肠、腐乳，还有新鲜蔬菜等等各种好吃的，有一些是剧组特地带过去的。但是在他们去之前，中国的这些科考队员已经半年以上没吃过新鲜蔬菜了。
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
-电影拍摄时正值南极夏季，在基地吃饭的时候基本上跟家里一样正常，在拍摄外景的时候呢就要用保温的饭盒，每个人在雪地上吃便当。米饭打开没多久就会冷了，而且每个盒子都是一样的，大家还经常搞混食物。在南极野外捕食基本不现实，《南极条约》是不允许的（不要打企鹅、海豹的主意啦...），没记错的话，一条鱼十年才长一毫米，你们忍心吗？所以最好解决温饱的问题还是食用更便捷的罐头，不要贪吃，满足温饱即可。对了，食用水的话要特别注意，南极的冰很多都是万年以上的，非常硬，冰水有的还有点咸，是海水混合，需谨慎。
+                <TextView
+                    android:id="@+id/tv_answer_detail_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_margin="@dimen/margin_16_dp"
+                    android:text="编辑于 15:33\n著作权归作者所有"
+                    android:textColor="@color/gray"
+                    android:textSize="@dimen/textsize_20_sp"/>
 
-在南极不可能野外搭帐篷，电影中的两个人是找到了一个废弃科考小站。而剧组实际拍摄时都是求助长城站的科考人员，住在长城站里。那里有十三名工作人员协助（后期纪录片中有介绍），各自住在不同的楼，有的科考楼、生活楼、吃饭楼、洗澡楼、还有条件很好的宿舍。那里还有特别完善的运动设施，篮球场等等。虽然居住环境很好，但是外面的风雪其实特别大，在两栋楼之间走路都可能走失，警戒必须非常高，所以那两位被丢在南极的人，如果找不到屋子碰上大风雪就没法生存下去。
+            </RelativeLayout>
 
-南极算是地球位数不多的净土，根据《南极条约》人类不能碰这里的任何植被，大家都要自觉去维护这里的环境。《南极之恋》的剧组非常环保，所有的垃圾都会带身上，怎么带来怎么带走处理。可燃的，玻璃的，金属的他们基本都是用焚烧的办法，残渣会运回国。电影中两个人野外解决垃圾及大小便的问题，其实是很不妥的。不过我们去南极，要携带必不可少的尿袋和便携式马桶，《南极之恋》剧组便是如此。尿尿在帐篷里用尿袋，不会污染环境，尿完后放衣服内袋还可以保暖。了解了这几项，会更方便你们在南极生存，如果介绍不清楚，可以去看一看电影。南极算是地球位数不多的净土，根据《南极条约》人类不能碰这里的任何植被，大家都要自觉去维护这里的环境。《南极之恋》的剧组非常环保，所有的垃圾都会带身上，怎么带来怎么带走处理。可燃的，玻璃的，金属的他们基本都是用焚烧的办法，残渣会运回国。电影中两个人野外解决垃圾及大小便的问题，其实是很不妥的。不过我们去南极，要携带必不可少的尿袋和便携式马桶，《南极之恋》剧组便是如此。尿尿在帐篷里用尿袋，不会污染环境，尿完后放衣服内袋还可以保暖。了解了这几项，会更方便你们在南极生存，如果介绍不清楚，可以去看一看电影。"/>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:layout_alignParentRight="true"
-                android:layout_margin="@dimen/margin_16_dp"
-                android:text="编辑于 15:33\n著作权归作者所有"
-                android:textColor="@color/gray"
-                android:textSize="@dimen/textsize_16_sp"/>
-        </RelativeLayout>
+        </LinearLayout>
     </ScrollView>
 
 </LinearLayout>

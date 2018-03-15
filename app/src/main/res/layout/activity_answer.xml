@@ -51,18 +51,19 @@
                 android:orientation="vertical">
 
                 <TextView
+                    android:id="@+id/tv_answer_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/margin_8_dp"
-                    android:text="如何评价在野外长跑比赛中,选手抢夺其他选手水瓶被取消冠军成绩?"
                     android:textSize="@dimen/textsize_20_sp"
                     android:textStyle="bold"/>
 
                 <TextView
+                    android:id="@+id/tv_answer_descript"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/margin_12_dp"
-                    android:text="如何评价在野外长跑比赛中,选手抢夺其他选手水瓶被取消冠军成绩?如何评价在野外长跑比赛中,选手抢夺其他选手水瓶被取消冠军成绩?选手抢夺其他选手水瓶被取消冠军成绩?如何评价在野外长跑比赛中,选手抢夺其他选手水瓶被取消冠军成绩?选手抢夺其他选手水瓶被取消冠军成绩?如何评价在野外长跑比赛中,选手抢夺其他选手水瓶被取消冠军成绩?"
+                    android:text=""
                     android:textSize="@dimen/textsize_14_sp"/>
 
                 <RelativeLayout
