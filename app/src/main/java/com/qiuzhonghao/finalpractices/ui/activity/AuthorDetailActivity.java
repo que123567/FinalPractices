@@ -38,7 +38,7 @@ public class AuthorDetailActivity extends BaseActivity {
     TextView mTvAuthorBriefIntro;
     @BindView(R.id.btn_author_follow)
     Button mBtnAuthorFollow;
-    @BindView(R.id.btn_author_chat)
+    @BindView(R.id.btn_author_black)
     Button mBtnAuthorChat;
     @BindView(R.id.rv_author_works)
     RecyclerView mRecyclerView;
@@ -84,7 +84,7 @@ public class AuthorDetailActivity extends BaseActivity {
     }
 
 
-    @OnClick({R.id.iv_author_background, R.id.iv_author_head, R.id.btn_author_follow, R.id.btn_author_chat})
+    @OnClick({R.id.iv_author_background, R.id.iv_author_head, R.id.btn_author_follow, R.id.btn_author_black})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.iv_author_background:
@@ -93,7 +93,7 @@ public class AuthorDetailActivity extends BaseActivity {
                 break;
             case R.id.btn_author_follow:
                 break;
-            case R.id.btn_author_chat:
+            case R.id.btn_author_black:
                 break;
         }
     }

@@ -76,7 +76,7 @@ public class AnswerActivity extends BaseActivity {
         checkNotNull(articleBean);
         mTvAnswerDescript.setText(articleBean.getArticle_content());//简介
         mTvAnswerTitle.setText(articleBean.getArticle_name());//标题
-        mTvCommentNum.setText(articleBean.getArticle_comment_number() + R.string.comment);//评论数
+//        mTvCommentNum.setText("23" + R.string.comment);//评论数
     }
 
     @Override
@@ -141,6 +141,17 @@ public class AnswerActivity extends BaseActivity {
         mMainHomeAdapter = new CommonAdapter<ArticleAnswerBean>(this, R.layout.item_answer_detail, mBeanList) {
             @Override
             protected void convert(ViewHolder holder, final ArticleAnswerBean ArticleAnswerBean, int position) {
+                if (position == 0) {
+                    holder.setText(R.id.tv_answer_author, "肥肥猫");
+                    holder.setImageDrawable(R.id.iv_answer_head, getResources().getDrawable(R.drawable.author_head));
+                }
+                if (position == 1) {
+                    holder.setText(R.id.tv_answer_author, "提姆");
+                    holder.setImageDrawable(R.id.iv_answer_head, getResources().getDrawable(R.drawable.dynamic_head));
+                }
+                if (position == 2) {
+                    holder.setText(R.id.tv_answer_author, "小赵");
+                }
                 holder.setText(R.id.tv_answer_briefintro, ArticleAnswerBean.getArticle_detail_content());
                 holder.setText(R.id.tv_answer_vote_number, ArticleAnswerBean.getArticle_detail_vote_number() + "点赞");
                 holder.setText(R.id.tv_answer_comment_number, ArticleAnswerBean.getArticle_detail_comment_number() + "评论");

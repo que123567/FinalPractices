@@ -27,8 +27,8 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_14_dp"
             android:layout_marginLeft="@dimen/margin_8_dp"
+            android:layout_marginTop="@dimen/margin_14_dp"
             android:text="赞同了该问题"/>
 
         <TextView
@@ -54,7 +54,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/margin_8_dp"
-            android:text="如果埃博拉病毒首先爆发在中国，中国人会被一波带走吗?"
+            android:text="编程/码代码的速度奇慢,靠自己永远也想不出来算法,怎么办?"
             android:textColor="@color/black"
             android:textSize="@dimen/textsize_18_sp"
             android:textStyle="bold"/>

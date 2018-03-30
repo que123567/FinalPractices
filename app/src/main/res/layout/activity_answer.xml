@@ -64,7 +64,7 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/margin_12_dp"
                     android:text=""
-                    android:textSize="@dimen/textsize_14_sp"/>
+                    android:textSize="@dimen/textsize_16_sp"/>
 
                 <RelativeLayout
                     android:layout_width="match_parent"

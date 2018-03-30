@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/margin_16_dp"
-        android:text="如果2个人被丢在了南极,如何才能活下来?"
+        android:text="编程速度奇慢,靠自己永远想不出来算法.怎么办?"
         android:textSize="@dimen/textsize_20_sp"
         android:textStyle="bold"/>
 
@@ -43,7 +43,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/margin_8_dp"
-                    android:text="Seasee Youl"/>
+                    android:text="肥肥猫"/>
 
                 <TextView
                     android:layout_width="match_parent"
