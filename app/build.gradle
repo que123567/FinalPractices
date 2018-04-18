@@ -58,4 +58,7 @@ dependencies {
 
     compile 'com.google.guava:guava:24.0-android'//guava
 
+    compile 'com.facebook.rebound:rebound:0.3.8'//facebook spring rebound
+
+
 }

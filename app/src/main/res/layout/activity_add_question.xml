@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.qiuzhonghao.finalpractices.ui.activity.AddQuestionActivity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <Button
+            android:id="@+id/btn_add_question_next_step"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/margin_48_dp"
+            android:layout_alignParentRight="true"
+            android:background="@drawable/btn_style1"
+            android:text="下一步"/>
+    </RelativeLayout>
+
+    <com.qiuzhonghao.finalpractices.ui.custom.ClearWriteEditText
+        android:id="@+id/et_question_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/margin_12_dp"
+        android:hint="请输入标题"/>
+
+    <EditText
+        android:id="@+id/et_question_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/margin_12_dp"
+        android:layout_marginRight="@dimen/margin_12_dp"
+        android:hint="请输入内容"/>
+
+
+</LinearLayout>

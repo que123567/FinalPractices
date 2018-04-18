@@ -1,6 +1,7 @@
 package com.qiuzhonghao.finalpractices.ui.fragment;
 
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -11,6 +12,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
@@ -22,8 +24,8 @@ import com.qiuzhonghao.finalpractices.R;
 import com.qiuzhonghao.finalpractices.bean.MainHomeArticleBean;
 import com.qiuzhonghao.finalpractices.constant.API;
 import com.qiuzhonghao.finalpractices.network.ArticleService;
-import com.qiuzhonghao.finalpractices.network.FileUploadService;
 import com.qiuzhonghao.finalpractices.network.RxService;
+import com.qiuzhonghao.finalpractices.ui.activity.AddQuestionActivity;
 import com.qiuzhonghao.finalpractices.ui.activity.AnswerActivity;
 import com.qiuzhonghao.finalpractices.ui.activity.AuthorDetailActivity;
 import com.qiuzhonghao.finalpractices.ui.custom.SearchEditText;
@@ -31,8 +33,6 @@ import com.qiuzhonghao.finalpractices.util.TimeTransferUtils;
 import com.zhy.adapter.recyclerview.CommonAdapter;
 import com.zhy.adapter.recyclerview.base.ViewHolder;
 
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -43,13 +43,6 @@ import de.hdodenhof.circleimageview.CircleImageView;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
-import okhttp3.MediaType;
-import okhttp3.MultipartBody;
-import okhttp3.RequestBody;
-import okhttp3.ResponseBody;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 import retrofit2.Retrofit;
 
 import static com.google.common.base.Preconditions.checkNotNull;
@@ -81,6 +74,7 @@ public class MainHomeFragment extends Fragment implements SwipeRefreshLayout.OnR
     Unbinder unbinder;
     SwipeRefreshLayout mSwipeRefreshLayout;
 
+
     public MainHomeFragment() {
     }
 
@@ -94,6 +88,7 @@ public class MainHomeFragment extends Fragment implements SwipeRefreshLayout.OnR
         mSwipeRefreshLayout = view.findViewById(R.id.swipe_main_home);
         initSwipeRefreshLayout(mSwipeRefreshLayout);
         setOnEditorActionListener(mSearchEditText);
+
         initAdapter();
         initData();
         return view;
@@ -103,56 +98,7 @@ public class MainHomeFragment extends Fragment implements SwipeRefreshLayout.OnR
      * 初始化首页数据
      */
     private void initData() {
-        /**
-         * 文件上传测试
-         */
-
-        doFileUpload();
-        /*
-        文件上传测试
-         */
-
         getMainHomeInfo();
-    }
-
-    private void doFileUpload() {
-        Retrofit retrofit = RxService.getRetrofitInstance(API.FILEUPLOAD);
-        FileUploadService service = retrofit.create(FileUploadService.class);
-        final File file = new File("/storage/emulated/0/Pictures/Screenshots/Screenshot_20180318-083820.png");
-
-        if (!file.exists()) {
-            try {
-                throw new FileNotFoundException();
-            } catch (FileNotFoundException e) {
-                Toast.makeText(getActivity(), "上传文件不存在", Toast.LENGTH_SHORT).show();
-            }
-        }
-
-        RequestBody requestFile =
-                RequestBody.create(MediaType.parse("multipart/form-data"), file);
-
-        MultipartBody.Part body =
-                MultipartBody.Part.createFormData("uploaded_file", file.getName(), requestFile);
-
-        String descriptionString = "This is a description";
-        RequestBody description =
-                RequestBody.create(
-                        MediaType.parse("multipart/form-data"), descriptionString);
-
-        Call<ResponseBody> call = service.upload(description, body);
-        call.enqueue(new Callback<ResponseBody>() {
-            @Override
-            public void onResponse(Call<ResponseBody> call,
-                                   Response<ResponseBody> responseBody) {
-                Toast.makeText(getActivity(), "文件上传成功", Toast.LENGTH_SHORT).show();
-            }
-
-            @Override
-            public void onFailure(Call<ResponseBody> call, Throwable t) {
-                Toast.makeText(getActivity(), "文件上传失败", Toast.LENGTH_SHORT).show();
-                t.printStackTrace();
-            }
-        });
     }
 
 
@@ -183,11 +129,14 @@ public class MainHomeFragment extends Fragment implements SwipeRefreshLayout.OnR
      *
      * @param holder
      */
-    private void initsetOnClick(ViewHolder holder, final int position) {
+    private void initsetOnClick(final ViewHolder holder, final int position) {
         holder.setOnClickListener(R.id.iv_main_home_head, new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getActivity(), AuthorDetailActivity.class));
+                Intent intent = new Intent(getActivity(), AuthorDetailActivity.class);
+                TextView tv = holder.getView(R.id.tv_main_home_author);
+                intent.putExtra("NICKNAME", tv.getText().toString());
+                startActivity(intent);
             }
         });
         holder.setOnClickListener(R.id.tv_main_home_briefintro, new View.OnClickListener() {
@@ -222,6 +171,7 @@ public class MainHomeFragment extends Fragment implements SwipeRefreshLayout.OnR
      *
      * @param editText
      */
+    @SuppressLint("ClickableViewAccessibility")
     private void setOnEditorActionListener(EditText editText) {
         editText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
@@ -232,6 +182,24 @@ public class MainHomeFragment extends Fragment implements SwipeRefreshLayout.OnR
                         getSearchInfo(v.getText().toString().trim());//搜索
                     }
                     return true;
+                }
+                return false;
+            }
+        });
+        editText.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                int width = v.getWidth();
+                int paddingRight = v.getPaddingRight();
+
+                if (event.getAction() == MotionEvent.ACTION_UP) {
+                    boolean touchable = event.getX() > (width - paddingRight - 50)
+                            && (event.getX() < ((width - paddingRight)));
+                    if (touchable) {
+                        Intent intent = new Intent();
+                        intent.setClass(getActivity(), AddQuestionActivity.class);
+                        startActivity(intent);
+                    }
                 }
                 return false;
             }

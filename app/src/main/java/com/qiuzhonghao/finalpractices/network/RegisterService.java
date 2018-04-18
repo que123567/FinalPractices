@@ -14,4 +14,6 @@ import retrofit2.http.Query;
 public interface RegisterService {
     @GET("doUserRegister.php")
     Observable<ResultCodeBean> doRegister(@Query("phone_number") String phoneNumber, @Query("password") String password, @Query("nickname") String nickname);
+
+
 }

@@ -78,8 +78,7 @@ public class ClearWriteEditText extends android.support.v7.widget.AppCompatEditT
     public boolean onTouchEvent(MotionEvent event) {
         if (getCompoundDrawables()[2] != null) {
             if (event.getAction() == MotionEvent.ACTION_UP) {
-                boolean touchable = event.getX() > (getWidth()
-                        - getPaddingRight() - mClearDrawable.getIntrinsicWidth())
+                boolean touchable = event.getX() > (getWidth() - getPaddingRight() - mClearDrawable.getIntrinsicWidth())
                         && (event.getX() < ((getWidth() - getPaddingRight())));
                 if (touchable) {
                     this.setText("");

@@ -5,15 +5,16 @@ package com.qiuzhonghao.finalpractices.bean;
  * Created by QiuZhongHao.
  */
 
-public class ResultCodeBean
-{
+public class ResultCodeBean {
     int result_code;
+    String nickname;
 
     public int getResult_code() {
         return result_code;
     }
 
-    public void setResult_code(int result_code) {
-        this.result_code = result_code;
+
+    public String getNickname() {
+        return nickname;
     }
 }

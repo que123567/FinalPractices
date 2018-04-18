@@ -8,8 +8,6 @@ package com.qiuzhonghao.finalpractices.ui.custom;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
-import android.view.MotionEvent;
-import android.widget.Toast;
 
 import com.qiuzhonghao.finalpractices.R;
 
@@ -45,25 +43,26 @@ public class SearchEditText extends android.support.v7.widget.AppCompatEditText 
     }
 
 
-    @Override
-    public boolean onTouchEvent(MotionEvent event) {
-        if (getCompoundDrawables()[0] != null) {
-            if (event.getAction() == MotionEvent.ACTION_UP) {
-                boolean touchable = event.getX() > (getPaddingLeft()) && (event.getX() < ((getPaddingLeft() + mSearchDrawable.getIntrinsicWidth())));
-                if (touchable) {
-                    //TODO
-                    Toast.makeText(getContext(), "搜索", Toast.LENGTH_SHORT).show();
-                }
-            }
-        }
-
-        return super.onTouchEvent(event);
-    }
+//    @Override
+//    public boolean onTouchEvent(MotionEvent event) {
+//        if (getCompoundDrawables()[0] != null) {
+//            if (event.getAction() == MotionEvent.ACTION_UP) {
+//                boolean touchable = event.getX() > (getWidth() - getPaddingRight() - mAskDrawable.getIntrinsicWidth())
+//                        && (event.getX() < ((getWidth() - getPaddingRight())));
+//                if (touchable) {
+//                    //TODO 提问
+//                    Toast.makeText(getContext(), "搜索", Toast.LENGTH_SHORT).show();
+//                }
+//            }
+//        }
+//
+//        return super.onTouchEvent(event);
+//    }
 
     @Override
     public void onEditorAction(int actionCode) {
         super.onEditorAction(actionCode);
-        
+
     }
 
     public Drawable getSearchDrawable() {

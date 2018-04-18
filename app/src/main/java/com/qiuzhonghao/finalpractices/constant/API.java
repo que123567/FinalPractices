@@ -7,8 +7,7 @@ package com.qiuzhonghao.finalpractices.constant;
 
 public class API {
 
-    //    private static final String BASE_URL = "http://192.168.43.141/";//手机
-    private static final String BASE_URL = "http://192.168.43.141/";
+    public static final String BASE_URL = "http://192.168.43.141/";
     //登录
     public static final String LOGIN = BASE_URL + "final/login/"; //登录接口
     //注册
@@ -19,6 +18,10 @@ public class API {
     public static final String ARTICLE = BASE_URL + "final/article/";//文章
     //文件上传
     public static final String FILEUPLOAD = BASE_URL + "final/file/";//文件上传
+    //提问
+    public static final String QUESTION = BASE_URL + "final/question/";//提问
+    //用户
+    public static final String USER = BASE_URL + "final/user/";//提问
 
 
 }

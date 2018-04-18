@@ -2,6 +2,7 @@ package com.qiuzhonghao.finalpractices.network;
 
 import com.qiuzhonghao.finalpractices.bean.ArticleAnswerBean;
 import com.qiuzhonghao.finalpractices.bean.MainHomeArticleBean;
+import com.qiuzhonghao.finalpractices.bean.ResultCodeBean;
 
 import java.util.List;
 
@@ -23,4 +24,7 @@ public interface ArticleService {
 
     @GET("getDetailInfo.php")
     Observable<List<ArticleAnswerBean>> getDetailInfo(@Query("articleId") String id);
+
+    @GET("doQuestionUpload.php")
+    Observable<ResultCodeBean> doQuestionUpload(@Query("title") String title, @Query("content") String content, @Query("author") String author, @Query("flag") String flag);
 }

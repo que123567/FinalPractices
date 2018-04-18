@@ -11,9 +11,11 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.qiuzhonghao.finalpractices.R;
 import com.qiuzhonghao.finalpractices.base.BaseActivity;
 import com.qiuzhonghao.finalpractices.bean.MainHomeBean;
+import com.qiuzhonghao.finalpractices.util.UserUtil;
 import com.zhy.adapter.recyclerview.CommonAdapter;
 import com.zhy.adapter.recyclerview.base.ViewHolder;
 
@@ -46,6 +48,8 @@ public class AuthorDetailActivity extends BaseActivity {
     CommonAdapter<MainHomeBean> mMainHomeAdapter;
     List<MainHomeBean> mBeanList;
 
+    String nickname;//用户名
+
     @Override
     public int getLayout() {
         return R.layout.activity_author_detail;
@@ -53,7 +57,7 @@ public class AuthorDetailActivity extends BaseActivity {
 
     @Override
     protected void getIntentParams(Bundle bundle) {
-
+        nickname = bundle.getString("NICKNAME");
     }
 
     @Override
@@ -102,10 +106,17 @@ public class AuthorDetailActivity extends BaseActivity {
      * 初始化用户主页数据
      */
     private void initData() {
+        //用户个人数据
+        mTvAuthorBriefIntro.setText("这是一条关于" + nickname + "的简介.");
+        mTvAuthorName.setText(nickname);
+        String headURL = UserUtil.getUserHeadURL(nickname);
+        Glide.with(this).load(headURL).into(mIvAuthorHead);
+
+        //用户主页数据
         mBeanList = new ArrayList<>();
         MainHomeBean mainHomeBean = new MainHomeBean();
         mainHomeBean.setTitleTime("15分钟");
-        mainHomeBean.setAuthor("肥肥鱼");
+        mainHomeBean.setAuthor(nickname);
         mBeanList.add(mainHomeBean);
         mBeanList.add(mainHomeBean);
         mBeanList.add(mainHomeBean);

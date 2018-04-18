@@ -16,6 +16,7 @@
     <dimen name="margin_48_dp">48dp</dimen>
     <dimen name="margin_50_dp">50dp</dimen>
     <dimen name="margin_64_dp">64dp</dimen>
+    <dimen name="margin_82_dp">82dp</dimen>
     <dimen name="margin_96_dp">96dp</dimen>
 
     <!--textsize-->

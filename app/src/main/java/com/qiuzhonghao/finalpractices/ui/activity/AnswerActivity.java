@@ -55,6 +55,10 @@ public class AnswerActivity extends BaseActivity {
     TextView mTvAnswerTitle;
     @BindView(R.id.tv_answer_descript)
     TextView mTvAnswerDescript;
+    @BindView(R.id.tv_question_invite)
+    TextView mTvQuestionInvite;
+
+    MainHomeArticleBean articleBean;//保存问题简介和标题
 
     @Override
     public int getLayout() {
@@ -63,7 +67,7 @@ public class AnswerActivity extends BaseActivity {
 
     @Override
     protected void getIntentParams(Bundle bundle) {
-        MainHomeArticleBean articleBean = (MainHomeArticleBean) bundle.get("MainHomeBean");
+        articleBean = (MainHomeArticleBean) bundle.get("MainHomeBean");
         initArticleAnswerBean(articleBean);
     }
 
@@ -181,4 +185,10 @@ public class AnswerActivity extends BaseActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    @OnClick(R.id.tv_question_invite)
+    public void onViewClicked() {
+        Intent intent = new Intent(AnswerActivity.this, UsersAddActivity.class);
+        intent.putExtra("MainHomeBean", articleBean);
+        startActivity(intent);
+    }
 }

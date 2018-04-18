@@ -2,6 +2,7 @@ package com.qiuzhonghao.finalpractices.ui.activity;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.TextUtils;
@@ -55,7 +56,6 @@ public class LoginActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setBackGroundAnnimaiton(ivBackground);
         setEditTextWatcher();
-        startActivity(MainActivity.class);
     }
 
 
@@ -157,7 +157,7 @@ public class LoginActivity extends BaseActivity {
      * @param phoneNumber
      * @param password
      */
-    private void checkPhoneAndPassword(String phoneNumber, String password) {
+    private void checkPhoneAndPassword(final String phoneNumber, String password) {
         Retrofit retrofit = RxService.getRetrofitInstance(API.LOGIN);
         LoginService loginService = retrofit.create(LoginService.class);
         loginService.checkUserPassword(phoneNumber, password)
@@ -168,6 +168,11 @@ public class LoginActivity extends BaseActivity {
                     public void accept(ResultCodeBean resultCodeBean) throws Exception {
                         if (resultCodeBean.getResult_code() == 0) {
                             showToast("登录成功");
+                            SharedPreferences share = getSharedPreferences("TOKEN", MODE_PRIVATE);
+                            SharedPreferences.Editor editor = share.edit();
+                            editor.putString("UserNickName", resultCodeBean.getNickname());
+                            editor.putString("UserPhoneNumber", resultCodeBean.getNickname());
+                            editor.commit();
                             startActivity(MainActivity.class);
                             finish();
                         } else if (resultCodeBean.getResult_code() == -101) {

@@ -21,8 +21,7 @@
             android:id="@+id/tv_main_home_author"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_14_dp"
-            android:text="菲菲毛"/>
+            android:layout_marginTop="@dimen/margin_14_dp"/>
 
         <TextView
             android:layout_width="wrap_content"
