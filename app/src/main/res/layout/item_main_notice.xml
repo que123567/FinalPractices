@@ -33,7 +33,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/margin_8_dp"
-                android:text="回答了问题"
+                android:text="邀请你回答"
                 android:textSize="@dimen/textsize_18_sp"/>
 
             <TextView

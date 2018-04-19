@@ -22,6 +22,8 @@ public class API {
     public static final String QUESTION = BASE_URL + "final/question/";//提问
     //用户
     public static final String USER = BASE_URL + "final/user/";//提问
+    //通知
+    public static final String NOTICE = BASE_URL + "final/notice/";//通知
 
 
 }

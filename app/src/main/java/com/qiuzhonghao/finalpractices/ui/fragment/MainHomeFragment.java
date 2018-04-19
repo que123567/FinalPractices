@@ -20,6 +20,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.qiuzhonghao.finalpractices.R;
 import com.qiuzhonghao.finalpractices.bean.MainHomeArticleBean;
 import com.qiuzhonghao.finalpractices.constant.API;
@@ -116,6 +117,9 @@ public class MainHomeFragment extends Fragment implements SwipeRefreshLayout.OnR
                 holder.setText(R.id.tv_main_home_briefintro, mainHomeBean.getArticle_content());
                 holder.setText(R.id.tv_main_home_vote_number, mainHomeBean.getArticle_vote_number());
                 holder.setText(R.id.tv_main_home_comment_number, mainHomeBean.getArticle_comment_number());
+                CircleImageView circleImageView = holder.getView(R.id.iv_main_home_head);
+                String HeadUrl = API.BASE_URL + "final/file/tmpFile/" + mainHomeBean.getArticle_author() + ".png";
+                Glide.with(getActivity()).load(HeadUrl).into(circleImageView);
                 initsetOnClick(holder, position);
             }
         };

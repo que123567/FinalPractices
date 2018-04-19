@@ -79,7 +79,6 @@ public class UsersAddActivity extends BaseActivity {
                 holder.setOnClickListener(R.id.ll_add_user, new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        //TODO:接口 author 当前用户名,
                         String targetAuthor = usersAddBean.getNickname();
                         doInvite(articleBean.getArticle_name(), author, targetAuthor);//通知
                     }
@@ -100,7 +99,7 @@ public class UsersAddActivity extends BaseActivity {
                     @Override
                     public void accept(NotifyBean notifyBean) throws Exception {
                         if (notifyBean.getResult_code().equals("0")) {
-                            showToast(author+" 邀请成功 "+targetAuthor);
+                            showToast(" 成功邀请 " + targetAuthor + " 回答问题");
                             UsersAddBean removeBean = new UsersAddBean();
                             for (UsersAddBean addBean : mBeanList) {
                                 if (addBean.getNickname().equals(targetAuthor)) {
@@ -138,6 +137,7 @@ public class UsersAddActivity extends BaseActivity {
                         for (UsersAddBean addBean : usersAddBeanList) {
                             if (addBean.getNickname().equals(author)) {
                                 mBeanList.remove(addBean);
+                                break;
                             }
                         }
                         mCommonAdapter.notifyDataSetChanged();
@@ -150,6 +150,4 @@ public class UsersAddActivity extends BaseActivity {
                     }
                 });
     }
-
-
 }

@@ -40,12 +40,14 @@
                 android:orientation="vertical">
 
                 <TextView
+                    android:id="@+id/tv_answer_detail_name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/margin_8_dp"
                     android:text="肥肥猫"/>
 
                 <TextView
+                    android:id="@+id/tv_answer_detail_brief"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/margin_8_dp"
@@ -99,7 +101,6 @@
                     android:textSize="@dimen/textsize_20_sp"/>
 
             </RelativeLayout>
-
 
 
         </LinearLayout>

@@ -9,11 +9,20 @@ import java.io.Serializable;
 
 public class ArticleAnswerBean implements Serializable {
     private String article_detail_author_phone;
+    private String article_detail_author_name;
     private String article_detail_vote_number;
     private String article_detail_comment_number;
     private String article_detail_time;
     private String article_detail_content;
     private String article_detail_id;
+
+    public String getArticle_detail_author_name() {
+        return article_detail_author_name;
+    }
+
+    public void setArticle_detail_author_name(String article_detail_author_name) {
+        this.article_detail_author_name = article_detail_author_name;
+    }
 
     public String getArticle_detail_author_phone() {
         return article_detail_author_phone;

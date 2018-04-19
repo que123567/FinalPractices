@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.qiuzhonghao.finalpractices.R;
 import com.qiuzhonghao.finalpractices.base.BaseActivity;
 import com.qiuzhonghao.finalpractices.bean.ArticleAnswerBean;
@@ -29,6 +30,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import de.hdodenhof.circleimageview.CircleImageView;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
@@ -145,26 +147,21 @@ public class AnswerActivity extends BaseActivity {
         mMainHomeAdapter = new CommonAdapter<ArticleAnswerBean>(this, R.layout.item_answer_detail, mBeanList) {
             @Override
             protected void convert(ViewHolder holder, final ArticleAnswerBean ArticleAnswerBean, int position) {
-                if (position == 0) {
-                    holder.setText(R.id.tv_answer_author, "肥肥猫");
-                    holder.setImageDrawable(R.id.iv_answer_head, getResources().getDrawable(R.drawable.author_head));
-                }
-                if (position == 1) {
-                    holder.setText(R.id.tv_answer_author, "提姆");
-                    holder.setImageDrawable(R.id.iv_answer_head, getResources().getDrawable(R.drawable.dynamic_head));
-                }
-                if (position == 2) {
-                    holder.setText(R.id.tv_answer_author, "小赵");
-                }
+                holder.setText(R.id.tv_answer_author, ArticleAnswerBean.getArticle_detail_author_name());
                 holder.setText(R.id.tv_answer_briefintro, ArticleAnswerBean.getArticle_detail_content());
                 holder.setText(R.id.tv_answer_vote_number, ArticleAnswerBean.getArticle_detail_vote_number() + "点赞");
                 holder.setText(R.id.tv_answer_comment_number, ArticleAnswerBean.getArticle_detail_comment_number() + "评论");
                 holder.setText(R.id.tv_answer_time, TimeTransferUtils.dateCalculator(ArticleAnswerBean.getArticle_detail_time(), "-"));
+
+                CircleImageView circleImageView = holder.getView(R.id.iv_answer_head);
+                final String HeadUrl = API.BASE_URL + "final/file/tmpFile/" + ArticleAnswerBean.getArticle_detail_author_name() + ".png";
+                Glide.with(AnswerActivity.this).load(HeadUrl).into(circleImageView);
                 holder.setOnClickListener(R.id.tv_answer_briefintro, new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         Intent intent = new Intent(AnswerActivity.this, AnswerDetailActivity.class);
-                        intent.putExtra("ArticleAnswerBean", ArticleAnswerBean.getArticle_detail_content());
+                        intent.putExtra("ArticleAnswerBean", ArticleAnswerBean);
+                        intent.putExtra("HeadUrl", HeadUrl);
                         startActivity(intent);
                     }
                 });
