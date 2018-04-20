@@ -2,8 +2,10 @@ package com.qiuzhonghao.finalpractices.ui.fragment;
 
 
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -36,13 +38,14 @@ import static android.content.Context.MODE_PRIVATE;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class NoticeFragment extends Fragment {
+public class NoticeFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener {
 
     Unbinder unbinder;
     RecyclerView mRecyclerView;
     CommonAdapter<NotifyBean> mMainHomeAdapter;
     List<NotifyBean> mBeanList;
     String author;
+    private SwipeRefreshLayout mSwipeLayout;
 
     public NoticeFragment() {
     }
@@ -52,8 +55,17 @@ public class NoticeFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_notice, container, false);
         unbinder = ButterKnife.bind(this, view);
         mRecyclerView = view.findViewById(R.id.rv_notice);
+        mSwipeLayout = view.findViewById(R.id.swipe_main_notice);
+        initSwipeRefreshLayout(mSwipeLayout);
         initData();
         return view;
+    }
+
+    private void initSwipeRefreshLayout(SwipeRefreshLayout swipeLayout) {
+        swipeLayout.setColorSchemeColors(Color.BLUE, Color.GREEN, Color.YELLOW, Color.RED);
+        swipeLayout.setDistanceToTriggerSync(200);
+        swipeLayout.setProgressBackgroundColorSchemeColor(Color.WHITE);
+        swipeLayout.setOnRefreshListener(this);
     }
 
     /**
@@ -90,12 +102,13 @@ public class NoticeFragment extends Fragment {
         NotifyService notifyService = retrofit.create(NotifyService.class);
         SharedPreferences share = getActivity().getSharedPreferences("TOKEN", MODE_PRIVATE);
         author = share.getString("UserNickName", "null");
-        notifyService.getNotify("赵小刚")
+        notifyService.getNotify(author)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Consumer<List<NotifyBean>>() {
                     @Override
                     public void accept(List<NotifyBean> notifyBean) throws Exception {
+                        mBeanList.clear();
                         mBeanList.addAll(notifyBean);
                         initAdapter(mBeanList);
 
@@ -112,5 +125,11 @@ public class NoticeFragment extends Fragment {
     public void onDestroyView() {
         super.onDestroyView();
         unbinder.unbind();
+    }
+
+    @Override
+    public void onRefresh() {
+        getNoticeData();
+        mSwipeLayout.setRefreshing(false);
     }
 }

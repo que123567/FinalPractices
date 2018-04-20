@@ -68,9 +68,9 @@ public class DynamicFragment extends Fragment implements SwipeRefreshLayout.OnRe
      */
     private void initSwipeRefreshLayout(SwipeRefreshLayout swipeLayout) {
         swipeLayout.setColorSchemeColors(Color.BLUE, Color.GREEN, Color.YELLOW, Color.RED);
-        mSwipeLayout.setDistanceToTriggerSync(200);
-        mSwipeLayout.setProgressBackgroundColorSchemeColor(Color.WHITE);
-        mSwipeLayout.setOnRefreshListener(this);
+        swipeLayout.setDistanceToTriggerSync(200);
+        swipeLayout.setProgressBackgroundColorSchemeColor(Color.WHITE);
+        swipeLayout.setOnRefreshListener(this);
     }
 
 

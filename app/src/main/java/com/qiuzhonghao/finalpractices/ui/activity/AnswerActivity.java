@@ -59,6 +59,8 @@ public class AnswerActivity extends BaseActivity {
     TextView mTvAnswerDescript;
     @BindView(R.id.tv_question_invite)
     TextView mTvQuestionInvite;
+    @BindView(R.id.tv_answer_add)
+    TextView mTvAnswerAdd;
 
     MainHomeArticleBean articleBean;//保存问题简介和标题
 
@@ -183,9 +185,16 @@ public class AnswerActivity extends BaseActivity {
     }
 
     @OnClick(R.id.tv_question_invite)
-    public void onViewClicked() {
+    public void doInvite() {
         Intent intent = new Intent(AnswerActivity.this, UsersAddActivity.class);
         intent.putExtra("MainHomeBean", articleBean);
+        startActivity(intent);
+    }
+
+    @OnClick(R.id.tv_answer_add)
+    public void addAnswer() {
+        Intent intent = new Intent(AnswerActivity.this, AnswerAddActivity.class);
+        intent.putExtra("TITLE", articleBean.getArticle_name());
         startActivity(intent);
     }
 }
