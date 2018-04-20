@@ -1,7 +1,9 @@
 package com.qiuzhonghao.finalpractices.ui.activity;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
@@ -38,7 +40,7 @@ import retrofit2.Retrofit;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
-public class AnswerActivity extends BaseActivity {
+public class AnswerActivity extends BaseActivity implements SwipeRefreshLayout.OnRefreshListener{
 
     CommonAdapter<ArticleAnswerBean> mMainHomeAdapter;
     List<ArticleAnswerBean> mBeanList;
@@ -61,6 +63,8 @@ public class AnswerActivity extends BaseActivity {
     TextView mTvQuestionInvite;
     @BindView(R.id.tv_answer_add)
     TextView mTvAnswerAdd;
+    @BindView(R.id.swipe_answer)
+    SwipeRefreshLayout mSwipeAnswer;
 
     MainHomeArticleBean articleBean;//保存问题简介和标题
 
@@ -96,6 +100,7 @@ public class AnswerActivity extends BaseActivity {
             actionbar.setDisplayHomeAsUpEnabled(true);
             actionbar.setTitle("");
         }
+        initSwipeRefreshLayout(mSwipeAnswer);
         initData();
         initAdapter();
     }
@@ -129,6 +134,7 @@ public class AnswerActivity extends BaseActivity {
                 .subscribe(new Consumer<List<ArticleAnswerBean>>() {
                     @Override
                     public void accept(List<ArticleAnswerBean> articleAnswerBeanList) throws Exception {
+                        mBeanList.clear();
                         mBeanList.addAll(articleAnswerBeanList);
                         mMainHomeAdapter.notifyDataSetChanged();
 //                        mLoadMoreWrapper.notifyDataSetChanged();
@@ -196,5 +202,19 @@ public class AnswerActivity extends BaseActivity {
         Intent intent = new Intent(AnswerActivity.this, AnswerAddActivity.class);
         intent.putExtra("TITLE", articleBean.getArticle_name());
         startActivity(intent);
+    }
+
+    private void initSwipeRefreshLayout(SwipeRefreshLayout swipeLayout) {
+        swipeLayout.setColorSchemeColors(Color.BLUE, Color.GREEN, Color.YELLOW, Color.RED);
+        swipeLayout.setDistanceToTriggerSync(200);
+        swipeLayout.setProgressBackgroundColorSchemeColor(Color.WHITE);
+        swipeLayout.setOnRefreshListener(this);
+    }
+
+    @Override
+    public void onRefresh() {
+        getArticleDetailInfo();
+        mSwipeAnswer.setRefreshing(false);
+
     }
 }

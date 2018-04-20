@@ -34,130 +34,139 @@
 
     </android.support.design.widget.AppBarLayout>
 
-
-    <android.support.v4.widget.NestedScrollView
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/swipe_answer"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-        <LinearLayout
+        <android.support.v4.widget.NestedScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical">
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
             <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/tv_answer_title"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/margin_8_dp"
-                    android:textSize="@dimen/textsize_20_sp"
-                    android:textStyle="bold"/>
-
-                <TextView
-                    android:id="@+id/tv_answer_descript"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/margin_12_dp"
-                    android:text=""
-                    android:textSize="@dimen/textsize_16_sp"/>
-
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                    <TextView
-                        android:id="@+id/tv_answer_follow_num"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="@dimen/margin_8_dp"
-                        android:text="292人关注"
-                        android:textSize="@dimen/margin_16_dp"/>
-
-                    <TextView
-                        android:id="@+id/tv_answer_comment_num"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="@dimen/margin_8_dp"
-                        android:layout_toRightOf="@id/tv_answer_follow_num"
-                        android:text="4条评论"
-                        android:textSize="@dimen/margin_16_dp"/>
-
-                    <Button
-                        android:id="@+id/btn_answer_follow"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentRight="true"
-                        android:layout_marginBottom="@dimen/margin_8_dp"
-                        android:layout_marginRight="@dimen/margin_8_dp"
-                        android:background="@color/dodgerblue"
-                        android:text="关注问题"/>
-                </RelativeLayout>
-
-            </LinearLayout>
-
-            <include layout="@layout/base_horizental_line_gray"></include>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:orientation="horizontal"
-                android:weightSum="2">
-
-                <include layout="@layout/base_vertical_line_gray"/>
-
-                <TextView
-                    android:id="@+id/tv_question_invite"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:text="邀请回答"
-                    android:textSize="@dimen/textsize_20_sp"
-                    android:textStyle="bold"/>
-
-                <include layout="@layout/base_vertical_line_gray"/>
-
-
-                <TextView
-                    android:id="@+id/tv_answer_add"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:text="添加回答"
-                    android:textSize="@dimen/textsize_20_sp"
-                    android:textStyle="bold"/>
-
-                <include layout="@layout/base_vertical_line_gray"/>
-
-
-            </LinearLayout>
-
-            <include layout="@layout/base_horizental_line_gray"></include>
-
-            <LinearLayout
+                android:id="@+id/ll_answer_add"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical">
 
-                <android.support.v7.widget.RecyclerView
-                    android:id="@+id/rv_answer"
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
 
-                </android.support.v7.widget.RecyclerView>
+                    <TextView
+                        android:id="@+id/tv_answer_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/margin_8_dp"
+                        android:textSize="@dimen/textsize_20_sp"
+                        android:textStyle="bold"/>
 
+                    <TextView
+                        android:id="@+id/tv_answer_descript"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/margin_12_dp"
+                        android:text=""
+                        android:textSize="@dimen/textsize_16_sp"/>
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:id="@+id/tv_answer_follow_num"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="@dimen/margin_8_dp"
+                            android:text="292人关注"
+                            android:textSize="@dimen/margin_16_dp"/>
+
+                        <TextView
+                            android:id="@+id/tv_answer_comment_num"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="@dimen/margin_8_dp"
+                            android:layout_toRightOf="@id/tv_answer_follow_num"
+                            android:text="4条评论"
+                            android:textSize="@dimen/margin_16_dp"/>
+
+                        <Button
+                            android:id="@+id/btn_answer_follow"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:layout_marginBottom="@dimen/margin_8_dp"
+                            android:layout_marginRight="@dimen/margin_8_dp"
+                            android:background="@color/dodgerblue"
+                            android:text="关注问题"/>
+                    </RelativeLayout>
+
+                </LinearLayout>
+
+                <include layout="@layout/base_horizental_line_gray"></include>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:orientation="horizontal"
+                    android:weightSum="2">
+
+                    <include layout="@layout/base_vertical_line_gray"/>
+
+                    <TextView
+                        android:id="@+id/tv_question_invite"
+                        android:layout_width="wrap_content"
+                        android:layout_height="@dimen/margin_32_dp"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:text="邀请回答"
+                        android:textSize="@dimen/textsize_20_sp"
+                        android:textStyle="bold"/>
+
+                    <include layout="@layout/base_vertical_line_gray"/>
+
+
+                    <TextView
+                        android:id="@+id/tv_answer_add"
+                        android:layout_width="wrap_content"
+                        android:layout_height="@dimen/margin_32_dp"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:text="添加回答"
+                        android:textSize="@dimen/textsize_20_sp"
+                        android:textStyle="bold"/>
+
+                    <include layout="@layout/base_vertical_line_gray"/>
+
+
+                </LinearLayout>
+
+                <include layout="@layout/base_horizental_line_gray"></include>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/rv_answer"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                    </android.support.v7.widget.RecyclerView>
+
+
+                </RelativeLayout>
 
             </LinearLayout>
-        </LinearLayout>
 
 
-    </android.support.v4.widget.NestedScrollView>
+        </android.support.v4.widget.NestedScrollView>
 
+
+    </android.support.v4.widget.SwipeRefreshLayout>
 </android.support.design.widget.CoordinatorLayout>

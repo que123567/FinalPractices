@@ -80,10 +80,10 @@ public class AnswerAddActivity extends BaseActivity {
                     public void accept(ResultCodeBean resultCodeBean) throws Exception {
                         if (resultCodeBean.equals("0")) {
                             Toast.makeText(AnswerAddActivity.this, "回答添加成功", Toast.LENGTH_SHORT).show();
+                            finish();
                         } else {
-                            Toast.makeText(AnswerAddActivity.this, "改问题回答已添加", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(AnswerAddActivity.this, "添加失败,回答已添加,", Toast.LENGTH_SHORT).show();
                         }
-                        finish();
                     }
                 }, new Consumer<Throwable>() {
                     @Override

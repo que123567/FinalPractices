@@ -45,8 +45,8 @@
 
 
     <com.qiuzhonghao.finalpractices.ui.custom.ClearWriteEditText
-        android:layout_width="match_parent"
         android:id="@+id/et_add_quesion"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/margin_1_dp"
         android:layout_marginRight="@dimen/margin_1_dp"
