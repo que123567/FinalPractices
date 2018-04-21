@@ -8,10 +8,10 @@
     tools:context="com.qiuzhonghao.finalpractices.ui.activity.AnswerDetailActivity">
 
     <TextView
+        android:id="@+id/tv_answer_detail_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/margin_16_dp"
-        android:text="编程速度奇慢,靠自己永远想不出来算法.怎么办?"
         android:textSize="@dimen/textsize_20_sp"
         android:textStyle="bold"/>
 
@@ -43,8 +43,7 @@
                     android:id="@+id/tv_answer_detail_name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/margin_8_dp"
-                    android:text="肥肥猫"/>
+                    android:layout_margin="@dimen/margin_8_dp"/>
 
                 <TextView
                     android:id="@+id/tv_answer_detail_brief"
@@ -56,6 +55,7 @@
             </LinearLayout>
 
             <Button
+                android:id="@+id/btn_answer_detail_follow"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
@@ -63,6 +63,7 @@
                 android:layout_marginTop="@dimen/margin_12_dp"
                 android:gravity="center"
                 android:text="关注"/>
+
 
         </RelativeLayout>
 
@@ -72,7 +73,8 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="460dp">
+
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -90,55 +92,66 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
+
                 <TextView
                     android:id="@+id/tv_answer_detail_time"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:layout_margin="@dimen/margin_16_dp"
-                    android:text="编辑于 15:33\n著作权归作者所有"
+                    android:text="n著作权归作者所有"
                     android:textColor="@color/gray"
                     android:textSize="@dimen/textsize_20_sp"/>
+
 
             </RelativeLayout>
 
 
         </LinearLayout>
 
+
     </ScrollView>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:weightSum="4">
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
 
-        <Button
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:background="@drawable/btn_style1"
-            android:text="点赞"/>
+            android:orientation="horizontal"
+            android:weightSum="4">
 
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:background="@drawable/btn_style1"
-            android:text="反对"/>
+            <Button
+                android:id="@+id/btn_answer_up"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="赞同"/>
 
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:background="@drawable/btn_style1"
-            android:text="收藏"/>
+            <Button
+                android:id="@+id/btn_answer_down"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="反对"/>
 
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:background="@drawable/btn_style1"
-            android:text="评论"/>
-    </LinearLayout>
+            <Button
+                android:id="@+id/btn_answer_collect"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:enabled="false"
+                android:text="分数:0"/>
+
+            <Button
+                android:id="@+id/btn_answer_comment"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="评论"/>
+        </LinearLayout>
+
+    </RelativeLayout>
+
 </LinearLayout>

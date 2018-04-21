@@ -8,13 +8,22 @@ package com.qiuzhonghao.finalpractices.bean;
 public class ResultCodeBean {
     int result_code;
     String nickname;
+    String score;
+    String reputation;
+
+    public String getReputation() {
+        return reputation;
+    }
 
     public int getResult_code() {
         return result_code;
     }
 
-
     public String getNickname() {
         return nickname;
+    }
+
+    public String getScore() {
+        return score;
     }
 }

@@ -19,4 +19,5 @@ public interface NotifyService {
 
     @GET("getNotice.php")
     Observable<List<NotifyBean>> getNotify(@Query("notify_to") String author);
+
 }

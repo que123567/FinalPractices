@@ -40,7 +40,7 @@ import retrofit2.Retrofit;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
-public class AnswerActivity extends BaseActivity implements SwipeRefreshLayout.OnRefreshListener{
+public class AnswerActivity extends BaseActivity implements SwipeRefreshLayout.OnRefreshListener {
 
     CommonAdapter<ArticleAnswerBean> mMainHomeAdapter;
     List<ArticleAnswerBean> mBeanList;
@@ -169,6 +169,7 @@ public class AnswerActivity extends BaseActivity implements SwipeRefreshLayout.O
                     public void onClick(View v) {
                         Intent intent = new Intent(AnswerActivity.this, AnswerDetailActivity.class);
                         intent.putExtra("ArticleAnswerBean", ArticleAnswerBean);
+                        intent.putExtra("ArticleTitle", articleBean.getArticle_name());
                         intent.putExtra("HeadUrl", HeadUrl);
                         startActivity(intent);
                     }

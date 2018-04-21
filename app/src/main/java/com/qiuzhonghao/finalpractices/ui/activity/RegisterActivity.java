@@ -210,7 +210,7 @@ public class RegisterActivity extends BaseActivity {
                 .subscribe(new Consumer<ResultCodeBean>() {
                     @Override
                     public void accept(ResultCodeBean resultCodeBean) throws Exception {
-                        if (resultCodeBean.getResult_code() == 0) {
+                        if (resultCodeBean.getResult_code()== 0) {
                             doUserRegister(phoneNumber, password, nickname);
                         } else {
                             Toast.makeText(RegisterActivity.this, "该用户已存在,无法注册!", Toast.LENGTH_SHORT).show();
