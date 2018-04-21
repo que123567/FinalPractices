@@ -99,7 +99,7 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:layout_margin="@dimen/margin_16_dp"
-                    android:text="n著作权归作者所有"
+                    android:text="\n著作权归作者所有"
                     android:textColor="@color/gray"
                     android:textSize="@dimen/textsize_20_sp"/>
 

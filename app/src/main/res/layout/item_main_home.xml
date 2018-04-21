@@ -28,7 +28,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/margin_8_dp"
             android:layout_marginTop="@dimen/margin_14_dp"
-            android:text="赞同了该问题"/>
+            android:text="发布了该问题"/>
 
         <TextView
             android:id="@+id/tv_main_home_time"

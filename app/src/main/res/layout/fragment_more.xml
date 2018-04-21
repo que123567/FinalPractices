@@ -129,7 +129,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="30dp"
                 android:gravity="center_horizontal"
-                android:text="你发表的评论可以同步到这里"/>
+                android:text="你点赞的记录可以同步到这里"/>
 
             <com.airbnb.lottie.LottieAnimationView
                 android:id="@+id/aim_question_hint"

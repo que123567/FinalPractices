@@ -9,6 +9,7 @@ import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -23,6 +24,7 @@ import com.qiuzhonghao.finalpractices.bean.MainHomeArticleBean;
 import com.qiuzhonghao.finalpractices.constant.API;
 import com.qiuzhonghao.finalpractices.network.ArticleService;
 import com.qiuzhonghao.finalpractices.network.RxService;
+import com.qiuzhonghao.finalpractices.network.SortService;
 import com.qiuzhonghao.finalpractices.util.TimeTransferUtils;
 import com.zhy.adapter.recyclerview.CommonAdapter;
 import com.zhy.adapter.recyclerview.base.ViewHolder;
@@ -68,6 +70,7 @@ public class AnswerActivity extends BaseActivity implements SwipeRefreshLayout.O
 
     MainHomeArticleBean articleBean;//保存问题简介和标题
 
+
     @Override
     public int getLayout() {
         return R.layout.activity_answer;
@@ -103,6 +106,26 @@ public class AnswerActivity extends BaseActivity implements SwipeRefreshLayout.O
         initSwipeRefreshLayout(mSwipeAnswer);
         initData();
         initAdapter();
+        initToolbarMenu();
+
+
+    }
+
+    private void initToolbarMenu() {
+        mToolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                switch (item.getItemId()) {
+                    case R.id.sort_menu1:
+                        getArticleDetailInfoByTimeSort();
+                        break;
+                    case R.id.sort_menu2:
+                        getArticleDetailInfoByScoreSort();
+                        break;
+                }
+                return false;
+            }
+        });
     }
 
     @OnClick({R.id.tv_answer_follow_num, R.id.tv_answer_comment_num, R.id.btn_answer_follow})
@@ -125,10 +148,13 @@ public class AnswerActivity extends BaseActivity implements SwipeRefreshLayout.O
         getArticleDetailInfo();
     }
 
+    /**
+     * 获取数据
+     */
     private void getArticleDetailInfo() {
         Retrofit retrofit = RxService.getRetrofitInstance(API.ARTICLE);
         ArticleService articleService = retrofit.create(ArticleService.class);
-        articleService.getDetailInfo("1")//TODO:根据文章id获取信息
+        articleService.getDetailInfo(articleBean.getArticle_name())//TODO:根据文章id获取信息
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Consumer<List<ArticleAnswerBean>>() {
@@ -138,6 +164,48 @@ public class AnswerActivity extends BaseActivity implements SwipeRefreshLayout.O
                         mBeanList.addAll(articleAnswerBeanList);
                         mMainHomeAdapter.notifyDataSetChanged();
 //                        mLoadMoreWrapper.notifyDataSetChanged();
+                    }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) throws Exception {
+                        Toast.makeText(AnswerActivity.this, "获取列表消息异常", Toast.LENGTH_SHORT).show();
+                    }
+                });
+    }
+
+    private void getArticleDetailInfoByTimeSort() {
+        Retrofit retrofit = RxService.getRetrofitInstance(API.SORT);
+        SortService sortService = retrofit.create(SortService.class);
+        sortService.doSortByTime(articleBean.getArticle_name())//TODO:根据文章id获取信息
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Consumer<List<ArticleAnswerBean>>() {
+                    @Override
+                    public void accept(List<ArticleAnswerBean> articleAnswerBeanList) throws Exception {
+                        mBeanList.clear();
+                        mBeanList.addAll(articleAnswerBeanList);
+                        mMainHomeAdapter.notifyDataSetChanged();
+                    }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) throws Exception {
+                        Toast.makeText(AnswerActivity.this, "获取列表消息异常", Toast.LENGTH_SHORT).show();
+                    }
+                });
+    }
+
+    private void getArticleDetailInfoByScoreSort() {
+        Retrofit retrofit = RxService.getRetrofitInstance(API.SORT);
+        SortService sortService = retrofit.create(SortService.class);
+        sortService.doSortByScore(articleBean.getArticle_name())//TODO:根据文章id获取信息
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Consumer<List<ArticleAnswerBean>>() {
+                    @Override
+                    public void accept(List<ArticleAnswerBean> articleAnswerBeanList) throws Exception {
+                        mBeanList.clear();
+                        mBeanList.addAll(articleAnswerBeanList);
+                        mMainHomeAdapter.notifyDataSetChanged();
                     }
                 }, new Consumer<Throwable>() {
                     @Override
@@ -217,5 +285,11 @@ public class AnswerActivity extends BaseActivity implements SwipeRefreshLayout.O
         getArticleDetailInfo();
         mSwipeAnswer.setRefreshing(false);
 
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.values, menu);
+        return super.onCreateOptionsMenu(menu);
     }
 }

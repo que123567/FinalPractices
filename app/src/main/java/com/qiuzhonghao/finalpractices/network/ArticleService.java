@@ -23,7 +23,7 @@ public interface ArticleService {
     Observable<List<MainHomeArticleBean>> getSearchInfo(@Query("search") String str);
 
     @GET("getDetailInfo.php")
-    Observable<List<ArticleAnswerBean>> getDetailInfo(@Query("articleId") String id);
+    Observable<List<ArticleAnswerBean>> getDetailInfo(@Query("title") String id);
 
     @GET("doQuestionUpload.php")
     Observable<ResultCodeBean> doQuestionUpload(@Query("title") String title, @Query("content") String content, @Query("author") String author, @Query("flag") String flag);
